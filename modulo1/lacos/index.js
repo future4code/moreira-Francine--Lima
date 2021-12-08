@@ -19,19 +19,24 @@
 let howMany = prompt("Quantos bichos de estimação você tem?");
 let noPets = Number(howMany);
 let petName;
-let petArray = [];
-while (noPets > 0) {
-  petName = prompt(`Digite os nomes dos seu pets`);
-  noPets = noPets - 1;
-  petArray.push(petName);
+
+if (noPets == 0) {
+  console.log("Que pena, adote!");
+}
+if (noPets > 0) {
+  let petArray = [];
+  while (noPets > 0) {
+    petName = prompt(`Digite os nomes dos seu pets`);
+    noPets = noPets - 1;
+    petArray.push(petName);
+  }
   console.log(petArray);
 }
 
-// 2-
-//a.
+// 2-a.
 const arrayOriginal = [1, 2, 3, 4];
 function verArray(array) {
-  for (let valor of arrayOriginal) {
+  for (let valor of array) {
     console.log(valor);
   }
 }
@@ -63,9 +68,9 @@ imprimePares(arrayOriginal);
 function imprimeNovaArray(array) {
   const novaArray = [];
   let indice = 0;
-  for (let indexxx of arrayOriginal) {
+  for (let nummer of arrayOriginal) {
+    novaArray.push(`O elemento do índex ${indice} é: numero ${nummer}`);
     indice++;
-    novaArray.push(`O elemento do índex ${indexxx} é: numero ${indice}`);
     //console.log(`O elemento do índex ${indexxx} é: numero ${indice}`);
   }
   console.log(novaArray);
@@ -73,7 +78,13 @@ function imprimeNovaArray(array) {
 
 imprimeNovaArray(arrayOriginal);
 //e.
-const arrayOriginal1 = [1, 2, 3, 4];
+const arrayOriginal1 = [10, 2, 3, 4];
+
+let min = Math.min(...arrayOriginal1);
+let max = Math.max(...arrayOriginal1);
+console.log(min);
+console.log(max);
+
 function retornaMaiorNumero(array) {
   let maiorNumero = 0;
 
@@ -82,20 +93,21 @@ function retornaMaiorNumero(array) {
       maiorNumero = array[i];
     }
   }
-
+  console.log(`This is the biggest number:${maiorNumero}`);
   return maiorNumero;
 }
-console.log(retornaMaiorNumero(`O maior número é:${arrayOriginal1}`));
+retornaMaiorNumero(arrayOriginal1);
+
 //Menor numero
 function retornaMenorNumero(array) {
-  let menorNumero = 0;
+  let menorNumero = Infinity;
 
   for (let i = 0; i < array.length; i++) {
-    if (array[i] > menorNumero) {
+    if (array[i] < menorNumero) {
       menorNumero = array[i];
     }
   }
-
+  console.log(`This is the smallest number:${menorNumero}`);
   return menorNumero;
 }
-console.log(retornaMenorNumero(`O menor número é:${arrayOriginal1}`));
+retornaMenorNumero(arrayOriginal1);
