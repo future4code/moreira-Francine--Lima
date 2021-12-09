@@ -28,15 +28,14 @@ const soSalsichas = pets.filter((animais) => {
 console.log(soSalsichas);
 
 //c.
-const soPoodles = pets.filter((animais) => {
-  if (animais.raca === "Poodle") {
-    return console.log(
-      "Você ganhou um cupom de desconto de 10% para tosar o/a",
-      animais.nome,
-      "!"
-    );
-  }
+const poodles = pets.filter((animais) => {
+  return animais.raca === "Poodle";
 });
+
+const soPoodles = poodles.map((animais) => {
+  return `Você ganhou um cupom de desconto de 10% para tosar o/a ${animais.nome}!`;
+});
+console.log(soPoodles);
 //2-
 const produtos = [
   { nome: "Alface Lavada", categoria: "Hortifruti", preco: 2.5 },
