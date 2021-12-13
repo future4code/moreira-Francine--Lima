@@ -55,11 +55,13 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 //REFAZER 08:
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-  let even = array.filter((num) => num % 2 === 0);
-  //   let evenN = even.map((num, n) => (n = array.length));
-  even.apply(even(n)).map(function myEvenArray() {
-    return even;
-  });
+  let numPares = [];
+  for (i = 0; numPares.length < n; i++) {
+    if (i % 2 === 0) {
+      numPares.push(i);
+    }
+  }
+  return numPares;
 }
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
@@ -117,29 +119,38 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-  //   pessoas = [
-  //     { nome: "A", idade: 12, altura: 1.8 },
-  //     { nome: "B", idade: 20, altura: 1.3 },
-  //     { nome: "C", idade: 15, altura: 1.9 },
-  //     { nome: "D", idade: 22, altura: 1.8 },
-  //     { nome: "E", idade: 10, altura: 1.2 },
-  //     { nome: "F", idade: 70, altura: 1.9 },
-  //   ];
-  //   let accessGranted = pessoas.filter(
-  //     (item) => item.altura > 1.5 && item.idade > 14 && item.idade < 60
-  //   );
-  //   console.log(accessGranted);
-  // if (pessoas.altura > 1.5 && pessoas.idade > 14 && pessoas.idade < 60) {
-  //let newArray = accesGranted.map((array) => array);
-
+  //pessoas.filter((item) =>
+  for (let item of pessoas) {
+    if (item.altura >= 1.5 && item.idade > 14 && item.idade < 60) {
+      accessGranted.push(item);
+    }
+  }
   return accessGranted;
 }
 
 // EXERCÍCIO 13B
-function retornaPessoasNaoAutorizadas(pessoas) {}
+function retornaPessoasNaoAutorizadas(pessoas) {
+  let accessNotGranted = [];
+  for (let item of pessoas) {
+    if (item.altura < 1.5 || item.idade <= 14 || item.idade >= 60) {
+      accessNotGranted.push(item);
+    }
+  }
+  return accessNotGranted;
+}
 
 // EXERCÍCIO 14
-function retornaContasComSaldoAtualizado(contas) {}
+function retornaContasComSaldoAtualizado(contas) {
+  let comprasTotal = 0;
+  contas.forEach((contaCliente) => {
+    contaCliente.compras.forEach((expenditure) => {
+      comprasTotal = comprasTotal + expenditure;
+    });
+    contaCliente.saldoTotal = contaCliente.saldoTotal - comprasTotal;
+    contaCliente.compras = [];
+  });
+  return contas;
+}
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
@@ -149,15 +160,3 @@ function retornaArrayOrdenadoAlfabeticamente(consultas) {
   let newConsultasAlf = consultas;
   return newConsultasAlf;
 }
-
-// EXERCÍCIO 15B
-// function retornaArrayOrdenadoPorData(consultas) {
-//   consultas = consultas.sort((a, b) => {
-//     a = a.split("/").join(" ").reverse();
-//     b = b.split("/").join(" ").reverse();
-
-//     return new Date(a.dataDaConsulta) > new Date(b.dataDaConsulta);
-//   });
-//   let newConsultasDate = consultas;
-//   return newConsultasDate;
-// }
