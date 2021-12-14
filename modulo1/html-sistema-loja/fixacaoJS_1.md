@@ -1,4 +1,4 @@
-function calculaSalario(qtdeCarrosVendidos, valorTotalVendas) {
+```function calculaSalario(qtdeCarrosVendidos, valorTotalVendas) {
  // Escreva seu código aqui
   let cincoPorCentoValorCarro=valorTotalVendas*0.05
  let comissao=100*qtdeCarrosVendidos+cincoPorCentoValorCarro
@@ -6,4 +6,4 @@ function calculaSalario(qtdeCarrosVendidos, valorTotalVendas) {
 
  return salarioMes
 
-}
+}```
