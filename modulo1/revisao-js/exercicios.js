@@ -99,9 +99,9 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-  //pessoas.filter((item) =>
+   let accessGranted = [];
   for (let item of pessoas) {
-    if (item.altura >= 1.5 && item.idade > 14 && item.idade < 60) {
+    if (item.altura >= 1.5 && item.idade < 60 && item.idade > 14) {
       accessGranted.push(item);
     }
   }
