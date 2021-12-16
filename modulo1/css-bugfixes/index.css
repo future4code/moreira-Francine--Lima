@@ -137,3 +137,13 @@ td button:hover {
 #back-button:focus {
   color: white;
 }
+#texto {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: solid;
+}
+
+.no-outline:focus {
+  outline: none;
+}
