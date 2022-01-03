@@ -1,0 +1,13 @@
+```function contaOcorrencias(arrayDeNumeros, numeroEscolhido) {
+  // Escreva seu código aqui
+  let arrayfiltrada = arrayDeNumeros.filter((x) => {
+    return x === numeroEscolhido;
+  });
+  let arraylang = arrayfiltrada.length;
+if (arraylang!==0){
+  return (`O número ${numeroEscolhido} aparece ${arraylang}x`);
+}else{
+  return(`Número não encontrado`)
+}
+
+}```
