@@ -35,23 +35,23 @@ class App extends React.Component {
     inputValue: "",
     filtro: "",
   };
-  salvarLocalStorage = () => {
-    localStorage.setItem("texto", JSON.stringify(this.state.inputValue));
-  };
-  searchLocalStorage = () => {
-    const tarefinhas = localStorage.getItem("texto");
-    this.setState({
-      texto: tarefinhas || "",
-    });
-  };
-  componentDidUpdate() {
-    this.salvarLocalStorage();
+ componentDidUpdate() {
+    const tarefinhaz = this.state.tarefas;
+    localStorage.setItem("texto", JSON.stringify(tarefinhaz));
+
+    // console.log("Salvou");
   }
 
   componentDidMount() {
-    this.searchLocalStorage();
-  }
+    if (localStorage.getItem("texto")) {
+      const tarefasLocalStorage = localStorage.getItem("texto");
+      const tarefasObj = JSON.parse(tarefasLocalStorage);
 
+      this.setState({
+        tarefas: tarefasObj,
+      });
+    }
+  }
   onChangeInput = (event) => {
     this.setState({ inputValue: event.target.value });
   };
