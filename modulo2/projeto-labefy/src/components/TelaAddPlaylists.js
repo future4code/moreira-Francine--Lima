@@ -1,14 +1,41 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+const Page = styled.div`
+  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+  height: 100vh;
+  display: flex;
+`;
+const MenuLateral = styled.div`
+
+  display: grid;
+  align-content: space-around;
+  width: 150px;
+  margin-left: 50px;
+  height: 300px;
+  margin-top: 100px;
+  button {
+    font-size: 20px;
+    color: brown;
+    border: 1px solid rosybrown;
+    border-radius: 20px;
+    padding: 8px;
+    margin: 8px;
+    width: 150px;
+    height: 60px;
+  }
+`;
 const TelaPlayist = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 50px;
   align-items: center;
-  width: 100%;
+  width: 60%;
   button {
+    font-size: 15px;
     color: brown;
     border: 1px solid rosybrown;
     border-radius: 30px;
@@ -23,6 +50,11 @@ const TelaPlayist = styled.div`
   }
   h2 {
     color: brown;
+    font-size: 35px;
+  }
+  h1 {
+    color: brown;
+    font-size: 60px;
   }
 `;
 export class TelaAddPlaylist extends React.Component {
@@ -59,16 +91,21 @@ export class TelaAddPlaylist extends React.Component {
 
   render() {
     return (
-      <div>
-        <TelaPlayist>
-          <button onClick={this.props.irParaAddDetails}>
+      <Page>
+        {/* <button onClick={this.props.irParaAddDetails}>
             Busque por uma playlist
-          </button>
+          </button> */}
+        <MenuLateral>
           <button onClick={this.props.irParaLista}>
             Ir para lista de Playlists
           </button>
           <button onClick={this.props.irParaTocarMusica}>Ouvir música</button>
           <button onClick={this.props.irParaAddMusic}>Adicionar música</button>
+        </MenuLateral>
+
+        <TelaPlayist>
+          <h1>Labefy</h1>
+
           <h2>Criar Playlist</h2>
           <input
             placeholder={"Nome"}
@@ -77,7 +114,7 @@ export class TelaAddPlaylist extends React.Component {
           />
           <button onClick={this.createPlaylist}>Criar Playlist</button>
         </TelaPlayist>
-      </div>
+      </Page>
     );
   }
 }

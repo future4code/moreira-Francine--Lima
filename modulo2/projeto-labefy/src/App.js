@@ -1,7 +1,8 @@
 import React from "react";
 import { TelaAddMusic } from "./components/TelaAddMusic";
 import { TelaAddPlaylist } from "./components/TelaAddPlaylists";
-import { TelaDetailsMusic } from "./components/TelaDetailsMusic";
+// import { TelaDetailsMusic } from "./components/TelaDetailsMusic";
+import { TelaDetailsPlaylists } from "./components/TelaDetailsPlaylists";
 import { TelaListaPlaylists } from "./components/TelaListaPlaylists";
 import { TelaSongListen } from "./components/TelaSongListen";
 
@@ -18,14 +19,16 @@ class App extends React.Component {
             irParaAddMusic={this.irParaAddMusic}
             irParaLista={this.irParaLista}
             irParaTocarMusica={this.irParaTocarMusica}
-            irParaAddDetails={this.irParaAddDetails}
+            // irParaAddDetails={this.irParaAddDetails}
           />
         );
       case "listaDePlaylists":
         return (
           <TelaListaPlaylists
-            irParaAddDetails={this.irParaAddDetails}
+            // irParaAddDetails={this.irParaAddDetails}
             irParaCriarPlaylist={this.irParaCriarPlaylist}
+            irParaTocarMusica={this.irParaTocarMusica}
+            irParaDetalhesPlaylists={this.irParaDetalhesPlaylists}
           />
         );
       case "addMusic":
@@ -36,14 +39,6 @@ class App extends React.Component {
             irParaCriarPlaylist={this.irParaCriarPlaylist}
           />
         );
-      case "play":
-        return (
-          <TelaDetailsMusic
-            irParaAddDetails={this.irParaAddDetails}
-            irParaCriarPlaylist={this.irParaCriarPlaylist}
-            irParaLista={this.irParaLista}
-          />
-        );
       case "playing":
         return (
           <TelaSongListen
@@ -52,6 +47,8 @@ class App extends React.Component {
             irParaLista={this.irParaLista}
           />
         );
+      case "detalhes":
+        return <TelaDetailsPlaylists irParaLista={this.irParaLista} />;
       default:
         return <div>Pagina não encontrada</div>;
     }
@@ -65,11 +62,12 @@ class App extends React.Component {
   irParaAddMusic = () => {
     this.setState({ telaAtual: "addMusic" });
   };
-  irParaAddDetails = () => {
-    this.setState({ telaAtual: "play" });
-  };
+
   irParaTocarMusica = () => {
     this.setState({ telaAtual: "playing" });
+  };
+  irParaDetalhesPlaylists = () => {
+    this.setState({ telaAtual: "detalhes" });
   };
   render() {
     return <div>{this.escolheTela()}</div>;

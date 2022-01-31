@@ -1,30 +1,19 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { TelaDetailsPlaylists } from "./TelaDetailsPlaylists";
 
-const CardUsuario = styled.div`
-  display: flex;
-  font-weight: bold;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  button {
-    color: red;
-    border: 3px solid red;
-    border-radius: 30px;
-    padding: 8px;
-    margin: 8px;
-  }
-`;
 const Page = styled.div`
+  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+
   width: 100%;
+  height: 100vh;
+  li {
+    list-style-type: none;
+  }
   button {
     color: brown;
     border: 1px solid rosybrown;
@@ -34,7 +23,38 @@ const Page = styled.div`
   }
   h2 {
     color: brown;
+    font-size: 45px;
   }
+`;
+const MenuLateral = styled.div`
+  display: grid;
+  align-content: space-around;
+  width: 160px;
+  margin-left: 50px;
+  height: 300px;
+  margin-top: 100px;
+  button {
+    font-size: 20px;
+    color: brown;
+    border: 1px solid rosybrown;
+    border-radius: 20px;
+    padding: 8px;
+    margin: 8px;
+    width: 150px;
+    height: 60px;
+  }
+`;
+const CardUsuario = styled.div`
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  color: brown;
+`;
+const Line = styled.hr`
+  border: 5px solid #f7797d;
+  width: 600px;
 `;
 export class TelaListaPlaylists extends React.Component {
   state = {
@@ -78,7 +98,7 @@ export class TelaListaPlaylists extends React.Component {
       .delete(url, headers)
       .then((res) => {
         // console.log(res);
-        alert("Usuário deletado com sucesso");
+        alert("Playlist deletada com sucesso");
         this.pegarPlaylists(); //fazendo o mesmo do did update mas de outra forma, pegando os usuarios de novo apos o deletar.
       })
       .catch((err) => {
@@ -103,51 +123,55 @@ export class TelaListaPlaylists extends React.Component {
       });
   };
   render() {
-    console.log(this.state.listaPlaylistsDetails); //Ver array de usuarios antes de dar o map
+    // console.log(this.state.listaPlaylistsDetails); //Ver array de usuarios antes de dar o map
     const listaPlaylists = this.state.playlists.map((playlist) => {
       return (
-        <CardUsuario cardId={playlist.id} key={playlist.id}>
-          <p>{playlist.name}</p>
-          <p>{playlist.id}</p>
-          <button onClick={() => this.deletarPlaylist(playlist.id)}>
-            Deletar
+        <div key={playlist.id}>
+          <button onClick={this.props.irParaTocarMusica}>
+            {playlist.name}
           </button>
+          <p>Id: {playlist.id}</p>
           <button onClick={() => this.detailsPlaylist(playlist.id)}>
             Ver mais detalhes
           </button>
-        </CardUsuario>
+
+          <button onClick={() => this.deletarPlaylist(playlist.id)}>
+            Deletar
+          </button>
+
+          <Line />
+        </div>
+      );
+    });
+    // console.log(listaPlaylists)
+    const listaPlaylistsDetails = this.state.playlistDetails.map((track) => {
+      return (
+        <TelaDetailsPlaylists
+          key={track.id}
+          nomeMusica={track.name}
+          nomeArtista={track.artist}
+        >
+          {/* {this.props.irParaDetalhesPlaylists} */}
+        </TelaDetailsPlaylists>
       );
     });
 
-    const listaPlaylistsDetails = this.state.playlistDetails.map((playlist) => {
-      return (
-        <CardUsuario
-          key={playlist.id}
-          // name={playlist.name}
-          // artist={playlist.artist}
-          // url={playlist.url}
-        >
-          <p>{playlist.name}</p>
-          <p>{playlist.artist}</p>
-          <p>{playlist.url}</p>
-        </CardUsuario>
-      );
-    });
     return (
       <div>
         <Page>
-          <button onClick={this.props.irParaAddDetails}>
-            Busque por uma playlist
-          </button>
-          <button onClick={this.props.irParaCriarPlaylist}>
-            Criar playlist
-          </button>
-          <div>
+          <MenuLateral>
+            {/* <button onClick={this.props.irParaDetalhesPlaylists}>Detalhes</button> */}
+            <button onClick={this.props.irParaCriarPlaylist}>Home</button>
+          </MenuLateral>
+          <CardUsuario>
+            <br />
+            <br />
             <h2>Playlists</h2>
-          </div>
+            <br />
+            {listaPlaylistsDetails}
+            {listaPlaylists}
+          </CardUsuario>
         </Page>
-        {listaPlaylists}
-        {listaPlaylistsDetails}
       </div>
     );
   }
