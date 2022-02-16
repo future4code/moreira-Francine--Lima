@@ -8,12 +8,12 @@ function Home(props) {
   const goToLogin = () => {
     navigate("/login");
   };
-  const goToPageAdmin = () => {
-    navigate("/admin/trips/list");
-  };
+  // const goToPageAdmin = () => {
+  //   navigate("/admin/trips/list");
+  // };
   return (
     <div>
-      <button onClick={goToPageAdmin}>Admin Home</button>
+      {/* <button onClick={goToPageAdmin}>Admin Home</button> */}
       <p>Home</p>
       <button onClick={goToVerViagens}>Ver viagens</button>
       <button onClick={goToLogin}>Área Admin</button>

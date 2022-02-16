@@ -1,13 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUrl } from "../constants/constants";
 import React from "react";
 import styled from "styled-components";
+import { useGetTrips } from "../Hooks/useGetTrips";
 const ListTripsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* height: 100vh; */
+
   color: black;
 `;
 const TripContainer = styled.div`
@@ -21,10 +20,9 @@ const TripsContainer = styled.div`
   height: fit-content;
   margin: 16px;
 `;
+
 function ListTrips() {
-  const [tripsList, setTripsList] = useState([]);
-  const [isListPrinted, setIsListPrinted] = useState(false);
-  // Router
+  // // Router
   const navigate = useNavigate();
   const goToHome = () => {
     navigate("/");
@@ -32,34 +30,17 @@ function ListTrips() {
   const goToApplicationForm = () => {
     navigate("/trips/application");
   };
-  //Axios get trips
-  const getTrips = () => {
-    axios
-      .get(getUrl)
-      .then((res) => {
-        console.log("DadosTrips", res.data);
-        // const novaListaTrips=[...tripsList,res.data.trips]
-        //   setTripsList(novaListaTrips);
-        setTripsList(res.data.trips);
 
-        // setIsListPrinted(!isListPrinted);
-      })
+  // //Axios Custom Hook get trips
+  const tripsList = useGetTrips(getUrl);
 
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getTrips();
-  }, []);
-  console.log("Constant tripslist", tripsList);
-
+  //Map da lista
   const listaDeViagens =
     tripsList &&
     tripsList.map((item) => {
       return (
         <TripContainer key={item.id}>
+          <p>Trip id: {item.id}</p>
           <p>Nome: {item.name}</p>
           <p>Data: {item.date}</p>
           <p>Planeta: {item.planet}</p>
@@ -68,14 +49,28 @@ function ListTrips() {
         </TripContainer>
       );
     });
-  console.log("Lista de viagens", listaDeViagens);
 
   return (
     <ListTripsContainer>
       <button onClick={goToHome}>Voltar para home</button>
-      <p>ListTrips</p>
+      <h2>ListTrips</h2>
+
       <button onClick={goToApplicationForm}>Application form</button>
-      <TripsContainer>{listaDeViagens}</TripsContainer>
+      <TripsContainer>
+        {tripsList.length > 0 ? (
+          listaDeViagens
+        ) : (
+          <iframe
+            src="https://giphy.com/embed/Qc8UoA7NJqx70SfiCL"
+            width="480"
+            height="240"
+           
+            frameBorder="0"
+            title="loading"
+            allowFullScreen
+          ></iframe>
+        )}
+      </TripsContainer>
     </ListTripsContainer>
   );
 }
