@@ -52,9 +52,14 @@ function ApplicationForm() {
       country: pais,
     };
     axios
-      .post(`${postUrl}:${idTrip}/apply`, Body, headers)
+      .post(`${postUrl}${idTrip}/apply`, Body, headers)
       .then((res) => {
-        console.log(res);
+        setNome("");
+        setAge("");
+        setDescricao("");
+        setProfissao("");
+        setPais("");
+        setIdTrip("");
         alert(`Aplicação enviada com sucesso ${"\u2728"}`);
       })
       .catch((err) => {
@@ -71,7 +76,7 @@ function ApplicationForm() {
         </option>
       );
     });
-  console.log("id", idTrip);
+
   return (
     <div>
       <p>ApplicationForm</p>

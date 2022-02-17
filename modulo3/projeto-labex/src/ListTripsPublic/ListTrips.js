@@ -64,7 +64,6 @@ function ListTrips() {
             src="https://giphy.com/embed/Qc8UoA7NJqx70SfiCL"
             width="480"
             height="240"
-           
             frameBorder="0"
             title="loading"
             allowFullScreen

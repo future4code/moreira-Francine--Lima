@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginPostUrl, headers } from "../constants/constants";
-function Login(props) {
-  const [isLogin, setIsLogin] = useState(false);
+function Login() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   //Router
@@ -11,6 +10,7 @@ function Login(props) {
   const goToHome = () => {
     navigate("/");
   };
+
   //inputs controlados
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -28,7 +28,7 @@ function Login(props) {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
-        setIsLogin(res.data.success);
+        navigate("/admin/trips/list");
       })
       .catch((err) => {
         alert("Usuário ou senha incorreta, por favor tente novamente.");
@@ -37,8 +37,6 @@ function Login(props) {
 
   return (
     <div>
-      {isLogin ? navigate("/admin/trips/list") : 
-      <div>
       <p>Login</p>
       <div>
         <p>Usuário</p>
@@ -61,9 +59,7 @@ function Login(props) {
         <button onClick={goToHome}>Voltar</button>
 
         <button onClick={loginUser}>Enviar</button>
-      
       </div>
-      </div>}
     </div>
   );
 }

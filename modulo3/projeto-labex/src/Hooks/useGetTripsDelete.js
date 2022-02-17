@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGetTrips = (url) => {
+export const useGetTripsDelete = (url) => {
   const [tripsList, setTripsList] = useState([]);
+//   const [isDeleted, setIsDeleted] = useState(false);
   // //Axios get trips
+
   const getTrips = () => {
     axios
       .get(url)
@@ -17,7 +19,6 @@ export const useGetTrips = (url) => {
         console.log(err);
       });
   };
-
   useEffect(() => {
     getTrips();
   }, []);

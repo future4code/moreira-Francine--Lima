@@ -25,7 +25,12 @@ function App() {
 
         <Route exact path={"/admin/trips/create"} element={<CreateTrip />} />
         <Route exact path={"/admin/trips/:id"} element={<TripDetails />} />
-        <Route element={<ListTrips/>}/>
+        {/* <Route
+          exact
+          path="/admin/trips/:id"
+          render={(props) => <TripDetails id={props.match.params.id} />}
+        /> */}
+        <Route element={<ListTrips />} />
       </Routes>
     </BrowserRouter>
   );

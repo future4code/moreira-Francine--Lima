@@ -2,54 +2,62 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useGetTrips } from "../Hooks/useGetTrips";
-import { getUrl, getTripDetails, headersToken } from "../constants/constants";
-import TripDetails from "./TripDetails";
+import { useProtectedPage } from "../Hooks/useProtectedPage";
+import { getUrl, deleteTripUrl } from "../constants/constants";
 
 function AdminHome(props) {
-  const [tripId, setTripId] = useState("");
-  const [tripDetailsApproved, setTripDetailsApproved] = useState([]);
-  const [tripDetailsCandidates, setTripDetailsCandidates] = useState([]);
+  const [tripsList, setTripsList] = useState([]);
+  const [isDeleted, setIsDeleted] = useState(false);
+  const token = localStorage.getItem("token");
+  useProtectedPage();
+  //Router
   const navigate = useNavigate();
   const goToHome = () => {
     navigate("/");
   };
-  //Router
+
   const goToDetails = (id) => {
     navigate(`/admin/trips/${id}`);
-    // setTripId(id);
   };
 
   const goToCreateTrip = () => {
     navigate("/admin/trips/create");
   };
-  //get list trips
-  const tripsList = useGetTrips(getUrl);
-  //trip details
-  const getDetails = (id) => {
-    const token = localStorage.getItem("token");
 
+  // //Axios get trips
+  const getTrips = () => {
     axios
-      .get(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/francine/trip/${id}`,
-        {
-          headers: { auth: token },
-        }
-      )
+      .get(getUrl)
       .then((res) => {
-        setTripDetailsApproved(res.data.trip.approved);
-        setTripDetailsCandidates(res.data.trip.candidates);
+        // console.log("DadosTrips", res.data);
+
+        setTripsList(res.data.trips);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  //Delete uma trip
+  const deleteTrip = (id) => {
+    axios
+      .delete(`${deleteTripUrl}${id}`, {
+        headers: {
+          auth: token,
+          Authorization: "Content-Type: application/json",
+        },
+      })
+      .then((res) => {
         console.log(res.data);
-        // setTripId(res.data.trip.id)
-        console.log(res.data.trip.candidates);
+        setIsDeleted(!isDeleted);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
-    return setTripId(id);
   };
   useEffect(() => {
-    getDetails();
-  }, []);
+    getTrips();
+  }, [isDeleted]);
   const tripsToChoose =
     tripsList &&
     tripsList.map((trip) => {
@@ -57,38 +65,13 @@ function AdminHome(props) {
         <div key={trip.id}>
           <button
             onClick={() => {
-              // goToDetails(trip.id);
-              getDetails(trip.id);
+              goToDetails(trip.id);
             }}
           >
             {trip.name}
           </button>
-          <button>Deletar</button>
+          <button onClick={() => deleteTrip(trip.id)}>Deletar</button>
         </div>
-      );
-    });
-  console.log("id", tripId);
-  const tripDetailApproved =
-    tripDetailsApproved &&
-    tripDetailsApproved.map((detail) => {
-      return <TripDetails name={detail.nome} />;
-    });
-  const tripDetailCandidates =
-    tripDetailsCandidates &&
-    tripDetailsCandidates.map((detail) => {
-      return (
-        // <p key={detail.id}>{detail.name}</p>
-
-        <TripDetails
-          key={detail.id}
-          nome={detail.name}
-          tripId={tripId}
-          id={detail.id}
-          age={detail.age}
-          profession={detail.profession}
-          applicationText={detail.applicationText}
-          country={detail.country}
-        />
       );
     });
 
@@ -97,15 +80,9 @@ function AdminHome(props) {
       <button onClick={goToHome}>Voltar para home</button>
       <h1>LabeX</h1>
       <button onClick={goToCreateTrip}>Create Trip</button>
-      <div>
-        {tripsToChoose}
-        {tripDetailCandidates}
-        {tripDetailApproved}
-        {/* <button onClick={goToDetails}>Ver detalhes</button> */}
-      </div>
+      <div>{tripsToChoose.length > 0 ? tripsToChoose : <p>Loading...</p>}</div>
     </div>
   );
 }
-//  <button>Aprovado</button>
-//       <button>Reprovado</button>
+
 export default AdminHome;
