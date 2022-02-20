@@ -14,7 +14,6 @@ const PageContainer = styled.div`
     font-size: 30px;
   }
 `;
-
 const ContainerForm = styled.form`
   font-family: monospace;
   display: flex;
@@ -63,8 +62,18 @@ function CreateTrip(props) {
     durationInDays: "",
   });
   useProtectedPage();
-  //Router
 
+  // ("0" + getDate()).slice(-2) date
+  //("0" + (this.getMonth() + 1)).slice(-2) month
+  let dateToday = new Date();
+  let stringDate =
+    dateToday.getFullYear() +
+    "-" +
+    ("0" + (dateToday.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + dateToday.getDate()).slice(-2);
+
+  //Router
   const navigate = useNavigate();
   const goToAdminHome = () => {
     navigate("/admin/trips/list");
@@ -74,7 +83,6 @@ function CreateTrip(props) {
     clearForm();
   };
 
-  // console.log(name,description,date,planet)
   const createTrip = () => {
     const body = form;
     const token = localStorage.getItem("token");
@@ -93,9 +101,7 @@ function CreateTrip(props) {
         console.log(err);
       });
   };
-  // useEffect(() => {
-  //   createTrip();
-  // }, [onSend]);
+
   return (
     <div>
       <Header />
@@ -109,7 +115,7 @@ function CreateTrip(props) {
             type="text"
             placeholder="Nome"
             name={"name"}
-            pattern={"^.{5,}"}
+            pattern={"^.{5,}$"}
             title="O nome da viagem deve conter mais que cinco caracteres."
             required
           />
@@ -120,7 +126,7 @@ function CreateTrip(props) {
             type="text"
             placeholder="Descrição"
             name={"description"}
-            pattern={"^.{30,}"}
+            pattern={"^.{30,}$"}
             title="O nome da viagem deve conter mais que trinta caracteres."
             required
           />
@@ -149,6 +155,7 @@ function CreateTrip(props) {
             name={"date"}
             onChange={onChangeForm}
             required
+            min={stringDate}
           />
 
           <p>Duração da viagem </p>

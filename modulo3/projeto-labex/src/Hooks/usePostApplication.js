@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const usePostApplication = (url, body, headers) => {
+  // const [idTrip, setIdTrip] = useState("");
   const applyToTrip = () => {
-    const [idTrip, setIdTrip] = useState("");
     axios
-      .post(`${url}:${idTrip}/apply`, body, headers)
+      .post(url, body, headers)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    return applyToTrip;
+    return applyToTrip();
   };
 };

@@ -74,7 +74,6 @@ function ListTrips() {
         <TripContainer key={item.id}>
           <div>
             <ImageCard src={astronaut} alt="Avatar" />
-            {/* <p>Trip id: {item.id}</p> */}
             <h2>{item.name}</h2>
             <p>Planeta: {item.planet}</p>
             <p>Data: {item.date}</p>

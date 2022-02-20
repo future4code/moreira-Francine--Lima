@@ -95,9 +95,7 @@ function AdminHome(props) {
     axios
       .get(getUrl)
       .then((res) => {
-        // console.log("DadosTrips", res.data);
-
-        setTripsList(res.data.trips);
+       setTripsList(res.data.trips);
       })
 
       .catch((err) => {
@@ -114,7 +112,6 @@ function AdminHome(props) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setIsDeleted(!isDeleted);
         alert("Viagem deletada com sucesso!");
       })
@@ -130,13 +127,13 @@ function AdminHome(props) {
     localStorage.clear();
     navigate("/login");
   };
+  //Map tripslist
   const tripsToChoose =
     tripsList &&
     tripsList.map((trip) => {
       return (
-        <div>
+        <div key={trip.id}>
           <ContainerCardTrips
-            key={trip.id}
             onClick={() => {
               goToDetails(trip.id);
             }}

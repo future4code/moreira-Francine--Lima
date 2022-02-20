@@ -6,6 +6,7 @@ import { useGetTrips } from "../Hooks/useGetTrips";
 import useForm from "../Hooks/useForm";
 import Header from "../Header/Header";
 import styled from "styled-components";
+// import { usePostApplication } from "../Hooks/usePostApplication";
 const ApplyPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,7 +36,7 @@ const ContainerForm = styled.form`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
-margin-top: 6px;
+  margin-top: 6px;
   width: 250px;
   button {
     font-size: 16px;
@@ -58,6 +59,11 @@ function ApplicationForm() {
     profession: "",
     country: "",
   });
+  // const applyToTrip=usePostApplication(
+  //   `${postUrl}${idTrip}/apply`,
+  //   form,
+  //   headers
+  // );
 
   // Router
   const navigate = useNavigate();
@@ -124,7 +130,7 @@ function ApplicationForm() {
             type="text"
             value={form.name}
             required
-            pattern={"^.{3,}"}
+            pattern={"^.{3,}$"}
             title="O nome deve conter mais que três caracteres."
           />
           <p>Idade</p>
@@ -145,7 +151,7 @@ function ApplicationForm() {
             name={"applicationText"}
             value={form.applicationText}
             required
-            pattern={"^.{30,}"}
+            pattern={"^.{30,}$"}
             title="O texto deve conter mais que trinta caracteres."
           />
           <p>Profissão</p>
@@ -156,7 +162,7 @@ function ApplicationForm() {
             name={"profession"}
             value={form.profession}
             required
-            pattern={"^.{10,}"}
+            pattern={"^.{10,}$"}
             title="O profissão deve conter mais que dez caracteres."
           />
 
