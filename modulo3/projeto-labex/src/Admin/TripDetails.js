@@ -31,8 +31,6 @@ const MainContainer = styled.div`
 `;
 
 const ContainerCardTrip = styled.div`
-  /* display: flex;
-  flex-direction: column; */
   width: 480px;
   height: 250px;
   background-color: #efefef;
@@ -40,6 +38,7 @@ const ContainerCardTrip = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
     5px 5px 0px 0px;
+  margin: 16px;
   p {
     font-size: 14px;
     padding: 0 6px;
@@ -56,6 +55,7 @@ const ContainerCardTrip = styled.div`
   }
 `;
 const ContainerCardTripsList = styled.div`
+  margin: 20px;
   display: flex;
   flex-direction: column;
   width: 480px;
@@ -113,10 +113,10 @@ function TripDetails(props) {
     axios
       .get(`${getTripDetails}${id}`, header)
       .then((res) => {
-        console.log(res.data);
-        console.log(res.data.trip.approved);
+        // console.log(res.data);
+        // console.log(res.data.trip.approved);
         setTrip([res.data.trip]);
-        console.log(res.data.trip.candidates);
+        // console.log(res.data.trip.candidates);
         setTripDetailsCandidates(res.data.trip.candidates);
         setTripDetailsApprovedCandidate(res.data.trip.approved);
       })
@@ -164,22 +164,23 @@ function TripDetails(props) {
     axios
       .put(putUrl, body, putHeaders)
       .then((res) => {
-        console.log(res.data);
-        alert("Aplicação deletada com sucesso.");
+        // console.log(res.data);
+        // alert("Aplicação deletada com sucesso.");
         setIsDeleted(!isDeleted);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  useEffect(
-    () => {
-      getDetailsTrips();
-    },
-    [isApproved],
-    [isDeleted]
-  );
+  useEffect(() => {
+    getDetailsTrips();
+  }, [isApproved]);
+  useEffect(() => {
+    getDetailsTrips();
+  }, []);
+  useEffect(() => {
+    getDetailsTrips();
+  }, [isDeleted]);
 
   ///maps para renderizar
   const listaDeViagens =
