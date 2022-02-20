@@ -8,6 +8,7 @@ import AdminHome from "./Admin/AdminHome";
 import CreateTrip from "./Admin/CreateTrip";
 import TripDetails from "./Admin/TripDetails";
 
+
 function App() {
   return (
     <BrowserRouter>

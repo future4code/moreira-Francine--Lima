@@ -1,39 +1,76 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { headers, postUrl, getUrl } from "../constants/constants";
 import { useGetTrips } from "../Hooks/useGetTrips";
-
+import useForm from "../Hooks/useForm";
+import Header from "../Header/Header";
+import styled from "styled-components";
+const ApplyPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: monospace;
+`;
+const ContainerForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input,
+  select {
+    font-size: 14px;
+    font-family: monospace;
+    font-weight: lighter;
+    align-self: start;
+    border-radius: 5px;
+    outline: none;
+    width: 300px;
+    max-width: 350px;
+    transition: padding 0.3s 0.2s ease;
+  }
+  p {
+    align-self: flex-start;
+  }
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+margin-top: 6px;
+  width: 250px;
+  button {
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #31322e;
+    cursor: pointer;
+    border: 3px solid;
+    margin: 20px;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
+      4px 4px 0px 0px, 5px 5px 0px 0px;
+  }
+`;
 function ApplicationForm() {
-  const [nome, setNome] = useState("");
-  const [age, setAge] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [profissao, setProfissao] = useState("");
-  const [pais, setPais] = useState("");
   const [idTrip, setIdTrip] = useState("");
+  const { form, onChangeForm, clearForm } = useForm({
+    name: "",
+    age: "",
+    applicationText: "",
+    profession: "",
+    country: "",
+  });
 
   // Router
   const navigate = useNavigate();
   const goToListTrips = () => {
     navigate("/trips/list");
   };
-  //inputs controlados
 
-  const onChangeNome = (event) => {
-    setNome(event.target.value);
+  //inputs controlados enviando o form
+  const onSend = (e) => {
+    e.preventDefault();
+    clearForm();
   };
-  const onChangeAge = (event) => {
-    setAge(event.target.value);
-  };
-  const onChangeDescricao = (event) => {
-    setDescricao(event.target.value);
-  };
-  const onChangeProfissao = (event) => {
-    setProfissao(event.target.value);
-  };
-  const onChangePais = (event) => {
-    setPais(event.target.value);
-  };
+
   //pegando o id pelo select
   const onChangeTrip = (event) => {
     setIdTrip(event.target.value);
@@ -44,22 +81,11 @@ function ApplicationForm() {
 
   //Apply to trip
   const applyToTrip = () => {
-    const Body = {
-      name: nome,
-      age: age,
-      applicationText: descricao,
-      profession: profissao,
-      country: pais,
-    };
+    const Body = form;
     axios
       .post(`${postUrl}${idTrip}/apply`, Body, headers)
       .then((res) => {
-        setNome("");
-        setAge("");
-        setDescricao("");
-        setProfissao("");
-        setPais("");
-        setIdTrip("");
+        console.log(res.data);
         alert(`Aplicação enviada com sucesso ${"\u2728"}`);
       })
       .catch((err) => {
@@ -67,7 +93,7 @@ function ApplicationForm() {
       });
   };
 
-  const destinos =
+  const destinations =
     tripsList &&
     tripsList.map((trip) => {
       return (
@@ -79,45 +105,68 @@ function ApplicationForm() {
 
   return (
     <div>
-      <p>ApplicationForm</p>
-      <label>
-        <p> Escolha uma viagem</p>
-        <select onChange={onChangeTrip} value={idTrip}>
-          {destinos}
-        </select>
-      </label>
-      <p>Nome</p>
-      <input
-        placeholder="Nome"
-        onChange={onChangeNome}
-        type="text"
-        value={nome}
-      />
-      <p>Idade</p>
-      <input
-        placeholder="Idade"
-        onChange={onChangeAge}
-        type="number"
-        value={age}
-      />
-      <p>Texto para aplicação</p>
-      <input
-        placeholder="Texto para aplicação"
-        onChange={onChangeDescricao}
-        type="text"
-        value={descricao}
-      />
-      <p>Profissão</p>
-      <input
-        placeholder="Profissão"
-        onChange={onChangeProfissao}
-        type="text"
-        value={profissao}
-      />
-      <div>
-        <label>
-          <p>Escolha um país</p>
-          <select name="country" onChange={onChangePais} value={pais}>
+      <Header />
+
+      <ApplyPage>
+        <h1>Inscreva-se para viajar</h1>
+
+        <ContainerForm onSubmit={onSend}>
+          <p> Escolha uma viagem</p>
+          <select onChange={onChangeTrip} value={idTrip} required>
+            {destinations}
+          </select>
+
+          <p>Nome</p>
+          <input
+            placeholder="Nome"
+            name={"name"}
+            onChange={onChangeForm}
+            type="text"
+            value={form.name}
+            required
+            pattern={"^.{3,}"}
+            title="O nome deve conter mais que três caracteres."
+          />
+          <p>Idade</p>
+          <input
+            placeholder="Idade"
+            onChange={onChangeForm}
+            name={"age"}
+            type="number"
+            value={form.age}
+            required
+            min={18}
+          />
+          <p>Texto para aplicação</p>
+          <input
+            placeholder="Texto para aplicação"
+            onChange={onChangeForm}
+            type="text"
+            name={"applicationText"}
+            value={form.applicationText}
+            required
+            pattern={"^.{30,}"}
+            title="O texto deve conter mais que trinta caracteres."
+          />
+          <p>Profissão</p>
+          <input
+            placeholder="Profissão"
+            onChange={onChangeForm}
+            type="text"
+            name={"profession"}
+            value={form.profession}
+            required
+            pattern={"^.{10,}"}
+            title="O profissão deve conter mais que dez caracteres."
+          />
+
+          <p>Escolha um país </p>
+          <select
+            name={"country"}
+            onChange={onChangeForm}
+            value={form.country}
+            required
+          >
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -413,10 +462,12 @@ function ApplicationForm() {
             <option value="Zambia">Zambia</option>
             <option value="Zimbabwe">Zimbabwe</option>
           </select>
-        </label>
-      </div>
-      <button onClick={goToListTrips}>Voltar</button>
-      <button onClick={applyToTrip}>Enviar</button>
+          <ButtonContainer>
+            <button onClick={goToListTrips}>Voltar</button>
+            <button onClick={applyToTrip}>Enviar</button>
+          </ButtonContainer>
+        </ContainerForm>
+      </ApplyPage>
     </div>
   );
 }
