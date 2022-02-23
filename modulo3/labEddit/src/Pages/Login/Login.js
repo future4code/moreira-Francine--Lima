@@ -58,7 +58,7 @@ function Login() {
             />
             <ButtonContainer>
               <button onClick={goTo}>Voltar</button>
-              <button onClick={loginUser}>Enviar</button>{" "}
+              <button onClick={loginUser}>Enviar</button>
             </ButtonContainer>
           </FormContainer>
         </LoginPageContainer>

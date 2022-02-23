@@ -1,76 +1,43 @@
 import Header from "../../components/Header/Header";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
 import { CommentBox, CommentTextBox, FeedContainer } from "./style";
-import { useChangePage } from "../../Hooks/useChangePage";
 import FeedPost from "./FeedPosts";
-import { useGetPosts } from "../../Hooks/useGetPosts";
 import { useLogout } from "../../Hooks/useLogout";
-import { useCreatePosts } from "../../Hooks/useCreatePost";
+import { useCreate } from "../../Hooks/useCreate";
 import useForm from "../../Hooks/useForm";
-import axios from "axios";
-import { BaseUrl, headerPosts, headers } from "../../constants/constants";
-function Feed() {
-  // const [postId, setPostId] = useState("");
-  const [isVoted, setIsVoted] = useState(false);
-  // const [upVote,setUpvote]=useState()
+import { useNavigate } from "react-router-dom";
+// import CommentSection from "../CommentSection/CommentSection";
+
+function Feed(props) {
   //Hooks
   useProtectedPage();
-  const { goTo } = useChangePage("/comments/:id");
+  const navigate = useNavigate();
+  const goToCommentSection = (id) => {
+    navigate(`/comments/${id}`);
+  };
+
   const logout = useLogout();
-  const { posts, getPosts } = useGetPosts();
+
+  //paginação (link/?page=10)
+  // const { posts, getPosts } = useGetPosts("/posts?page=2");
   const { form, onChangeForm, clearForm } = useForm({
     title: "",
     body: "",
   });
-  const { createPost, isCreated } = useCreatePosts(form);
+  const { createPost, isCreated } = useCreate(form, "/posts", "Post");
 
   //Form onSubmit
   const onCreatePost = (e) => {
     e.preventDefault();
     clearForm();
   };
-  //use effect para renderizar mais uma vez ao criar post
-  useEffect(() => {
-    getPosts();
-  }, [isCreated]);
-  useEffect(() => {
-    getPosts();
-  }, [isVoted]);
-  //axios post vote
-  const onPostUpvote = (id) => {
-    const body = {
-      direction: +1,
-    };
-    axios
-      .post(`${BaseUrl}/posts/${id}/votes`, body, headerPosts)
-      .then((res) => {
-        console.log("yeah!", res);
-        setIsVoted(!isVoted);
-      })
-      .catch((err) => {
-        console.log("ixe", err.response);
-      });
-  };
-    const onPostDownVote = (id) => {
-      const body = {
-        direction: -1,
-      };
-      axios
-        .post(`${BaseUrl}/posts/${id}/votes`, body, headerPosts)
-        .then((res) => {
-          console.log("yeah!", res);
-          setIsVoted(!isVoted);
-        })
-        .catch((err) => {
-          console.log("ixe", err.response);
-        });
-    };
+
   //map do get POSTS
 
   const listPosts =
-    posts &&
-    posts.map((post) => {
+    props.data &&
+    props.data.map((post) => {
       return (
         <FeedPost
           key={post.id}
@@ -81,12 +48,16 @@ function Feed() {
           userVote={post.userVote}
           voteSum={post.voteSum}
           id={post.id}
-          onPostUpvote={onPostUpvote}
-          onPostDownVote={onPostDownVote}
+          getData={props.getData}
+          onClick={goToCommentSection}
         />
       );
     });
 
+  //use effect para renderizar mais uma vez ao criar post
+  useEffect(() => {
+    props.getData();
+  }, [isCreated]);
   return (
     <div>
       <div>
@@ -94,7 +65,7 @@ function Feed() {
         <FeedContainer>
           <h2>Feed</h2>
           <div>
-            <button onClick={goTo}>Ver Comentários</button>
+            {/* <button onClick={goToCommentSection}>Ver Comentários</button> */}
             <button onClick={logout}>Logout</button>
           </div>
           <CommentBox>

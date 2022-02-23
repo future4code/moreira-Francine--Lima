@@ -62,6 +62,7 @@ export const PostContainer = styled.div`
   width: 300px;
   height: 300px;
   border: 3px dotted black;
+  cursor: pointer;
   article {
     height: 164px;
   }
@@ -69,6 +70,10 @@ export const PostContainer = styled.div`
     text-align: center;
   }
 `;
+export const PostTopContainer =styled.div`
+width: 300px;
+height: 200px;
+`
 export const BottomPostContainer = styled.div`
   display: flex;
   align-items: center;

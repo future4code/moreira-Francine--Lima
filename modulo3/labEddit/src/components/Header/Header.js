@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import icon from "../../img/icon-header.png";
+import icon from "../../assets/icon-header.png";
 import { Headers, ImgHeader } from "./style";
 
 function Header() {

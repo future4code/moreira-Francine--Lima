@@ -84,6 +84,7 @@ export const BottomPostContainer = styled.div`
 export const BottomPostContainerComment = styled.div`
   display: flex;
   align-items: center;
+  border: 1px solid blue;
   p {
     margin-left: 6px;
   }
@@ -92,7 +93,7 @@ export const BottomPostContainerReceivedComments = styled.div`
   display: flex;
   align-items: center;
   margin: 0 20px;
-
+  border: 1px solid black;
   img {
     width: 14px;
     height: 12px;
@@ -109,7 +110,7 @@ export const PostContainerReceivedComments = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 200px;
+  height: 150px;
   border: 3px dotted black;
   margin: 0 auto;
   article {

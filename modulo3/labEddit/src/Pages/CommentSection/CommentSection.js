@@ -7,22 +7,74 @@ import {
   BottomPostContainerComment,
   CommentBox,
   CommentTextBox,
-  PostContainerReceivedComments,
-  BottomPostContainerReceivedComments,
 } from "./style";
-import thumbUp from "../../img/thumbs-up.png";
-import thumbDown from "../../img/thumbs-down.png";
-function CommentSection() {
+import thumbUp from "../../assets/thumbs-up.png";
+import thumbDown from "../../assets/thumbs-down.png";
+import { useParams } from "react-router-dom";
+import { useGet } from "../../Hooks/useGet";
+import { useEffect } from "react";
+import CommentSectionPage from "./CommentSectionPage";
+import { useCreate } from "../../Hooks/useCreate";
+import useForm from "../../Hooks/useForm";
+
+function CommentSection(props) {
+
+
   useProtectedPage();
+  //id do post
+  const { id } = useParams();
+  // console.log(id)
   const { goTo } = useChangePage("/feed");
+  //create comment form
+  const { form, onChangeForm, clearForm } = useForm({
+    body: "",
+  });
+  const onComment = (e) => {
+    e.preventDefault();
+    clearForm();
+  };
+  //create comment
+  const { createPost, isCreated } = useCreate(
+    form,
+    `/posts/${id}/comments`,
+    "Comentário"
+  );
+
+  const { data, getData } = useGet(`/posts/${id}/comments/`);
+
+  const listComments =
+    data &&
+    data.map((post) => {
+      return (
+        <CommentSectionPage
+          key={post.id}
+          username={post.username}
+          title={post.title}
+          body={post.body}
+          commentCount={post.commentCount}
+          userVote={post.userVote}
+          voteSum={post.voteSum}
+          id={post.id}
+          getData={getData}
+        />
+      );
+    });
+  //map card post
+
+  useEffect(() => {
+    getData();
+  }, [isCreated]);
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
       <Header />
-      <div> CommentSection</div>
+      <div>CommentSection</div>
       <button onClick={goTo}> Voltar ao Feed</button>
       <PostContainer>
-        <h4>Nome usuario</h4>
+        <h4>{props.username}</h4>
         <article>Texto post</article>
         <BottomPostContainer>
           <div>
@@ -37,23 +89,19 @@ function CommentSection() {
         </BottomPostContainer>
       </PostContainer>
       <CommentBox>
-        <form>
-          <CommentTextBox placeholder="Escreva um comentário" />
-          <button>Comentar</button>
+        <form onSubmit={onComment}>
+          <CommentTextBox
+            type="text"
+            name={"body"}
+            onChange={onChangeForm}
+            value={form.body}
+            requiredplaceholder="Escreva um comentário"
+          />
+          <button onClick={createPost}>Comentar</button>
         </form>
       </CommentBox>
-      {/* SEPARAR EM OUTRO COMPONENTE */}
-      <PostContainerReceivedComments>
-        <h4>Nome usuario</h4>
-        <article>comentario</article>
-        <BottomPostContainerReceivedComments>
-          <div>
-            <img src={thumbUp} alt="voto positivo" />
-            <p>0</p>
-            <img src={thumbDown} alt="voto negativo" />
-          </div>
-        </BottomPostContainerReceivedComments>
-      </PostContainerReceivedComments>
+
+      {listComments}
     </div>
   );
 }

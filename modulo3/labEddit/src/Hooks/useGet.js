@@ -2,17 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 
 import { BaseUrl, token } from "../constants/constants";
-export const useGetPosts = () => {
-  const [posts, setPosts] = useState([]);
+export const useGet = (path) => {
+  const [data, setData] = useState([]);
 
   // //Axios get posts
 
-  const getPosts = () => {
+  const getData = () => {
     const header = { headers: { Authorization: token } };
     axios
-      .get(BaseUrl + "/posts", header)
+      .get(BaseUrl + path, header)
       .then((res) => {
-        setPosts(res.data);
+        setData(res.data);
       })
 
       .catch((err) => {
@@ -24,5 +24,5 @@ export const useGetPosts = () => {
   //   getPosts();
   // }, []);
 
-  return { posts, getPosts };
+  return { data, getData };
 };
