@@ -1,63 +1,63 @@
 import Header from "../../components/Header/Header";
 import { useEffect } from "react";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
-import { CommentBox, CommentTextBox, FeedContainer } from "./style";
+import {
+  CommentBox,
+  CommentTextBox,
+  FeedContainer,
+  PostListContainer,
+} from "./style";
 import FeedPost from "./FeedPosts";
 import { useLogout } from "../../Hooks/useLogout";
 import { useCreate } from "../../Hooks/useCreate";
 import useForm from "../../Hooks/useForm";
 import { useNavigate } from "react-router-dom";
-// import CommentSection from "../CommentSection/CommentSection";
 
 function Feed(props) {
-  //Hooks
   useProtectedPage();
-  const navigate = useNavigate();
-  const goToCommentSection = (id) => {
-    navigate(`/comments/${id}`);
-  };
-
   const logout = useLogout();
-
-  //paginação (link/?page=10)
-  // const { posts, getPosts } = useGetPosts("/posts?page=2");
   const { form, onChangeForm, clearForm } = useForm({
     title: "",
     body: "",
   });
   const { createPost, isCreated } = useCreate(form, "/posts", "Post");
-
   //Form onSubmit
   const onCreatePost = (e) => {
     e.preventDefault();
     clearForm();
   };
 
+  //Navigation
+  const navigate = useNavigate();
+  const goToCommentSection = (id) => {
+    navigate(`/comments/${id}`);
+  };
+
   //map do get POSTS
 
-  const listPosts =
-    props.data &&
-    props.data.map((post) => {
-      return (
-        <FeedPost
-          key={post.id}
-          username={post.username}
-          title={post.title}
-          body={post.body}
-          commentCount={post.commentCount}
-          userVote={post.userVote}
-          voteSum={post.voteSum}
-          id={post.id}
-          getData={props.getData}
-          onClick={goToCommentSection}
-        />
-      );
-    });
+  const listPosts = props.data?.map((post) => {
+    return (
+      <FeedPost
+        key={post.id}
+        username={post.username}
+        title={post.title}
+        body={post.body}
+        commentCount={post.commentCount}
+        userVote={post.userVote}
+        voteSum={post.voteSum}
+        id={post.id}
+        getData={props.getData}
+        onClick={goToCommentSection}
+      />
+    );
+  });
 
   //use effect para renderizar mais uma vez ao criar post
+
   useEffect(() => {
     props.getData();
   }, [isCreated]);
+  // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div>
       <div>
@@ -65,7 +65,6 @@ function Feed(props) {
         <FeedContainer>
           <h2>Feed</h2>
           <div>
-            {/* <button onClick={goToCommentSection}>Ver Comentários</button> */}
             <button onClick={logout}>Logout</button>
           </div>
           <CommentBox>
@@ -83,10 +82,10 @@ function Feed(props) {
                 placeholder="Escreva um Post"
                 onChange={onChangeForm}
               />
-              <button onClick={createPost}>Criar post</button>
+              <button onClick={createPost}>Postar</button>
             </form>
           </CommentBox>
-          <div>{listPosts}</div>
+          <PostListContainer>{listPosts}</PostListContainer>
         </FeedContainer>
       </div>
     </div>

@@ -70,6 +70,7 @@ export const BottomPostContainer = styled.div`
   align-items: center;
   margin: 0 20px;
   justify-content: space-between;
+
   img {
     width: 16px;
     height: 16px;

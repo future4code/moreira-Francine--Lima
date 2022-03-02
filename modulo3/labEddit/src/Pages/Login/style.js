@@ -1,53 +1,60 @@
 import styled from "styled-components";
 
 export const LoginPageContainer = styled.div`
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: monospace;
-  width: 400px;
   margin: 0 auto;
-  width: 400px;
-  height: 320px;
-  background-color: #efefef;
+  width: 500px;
+  height: 450px;
+  background-color: #db74ff;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
-    5px 5px 0px 0px;
 `;
 export const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   p {
-    align-self: flex-start;
-    font-size: 14px;
+    font-size: 18px;
   }
   input {
-    font-size: 14px;
+    font-size: 16px;
     font-family: monospace;
     font-weight: lighter;
-    align-self: start;
+    height: 30px;
     border-radius: 5px;
     outline: none;
-    width: 200px;
+    width: 250px;
     background-color: white;
-    transition: padding 0.3s 0.2s ease;
+    margin-bottom: 30px;
   }
 `;
 export const ButtonContainer = styled.div`
   display: flex;
-  width: 200px;
-  justify-content: space-around;
+  width: 250px;
+  justify-content: space-between;
+  margin-top: 30px;
   button {
-    font-size: 14px;
-    letter-spacing: 2px;
-    color: #31322e;
+    color: white;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 700;
+    width: 150px;
+    margin: 0 10px;
+    height: 40px;
+    touch-action: manipulation;
+    background-color: #f9d745;
     cursor: pointer;
-    border: 3px solid;
-    margin: 28px;
-    padding: 0.25em 0.5em;
-    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
-      4px 4px 0px 0px, 5px 5px 0px 0px;
+    border: 5px dotted #59d48f;
+    color: #05396b;
+    :hover {
+      background-color: white;
+      cursor: pointer;
+      border: 5px dotted #05396b;
+      color: #59d48f;
+    }
+    /* @media (min-width: 768px) {
+      .button-51 {
+        padding: 16px 32px;
+      } */
   }
 `;

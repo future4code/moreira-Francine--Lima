@@ -16,7 +16,6 @@ function SignUp() {
 
   //Router
   const navigate = useNavigate();
-  const { goTo } = useChangePage("/");
   const { goToLogin } = useChangePageLogin("/login");
   const onSingUp = (e) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ function SignUp() {
     axios
       .post(BaseUrl + "/users/signup", body, headers)
       .then((res) => {
-        localStorage.setItem("tokenCadastro", res.data.token);
+        localStorage.setItem("token", res.data.token);
         navigate("/feed");
       })
       .catch((err) => {
@@ -80,9 +79,10 @@ function SignUp() {
                 title="A senha deve conter mais que oito caracteres e menos de trinta caracteres."
               />
               <ButtonContainer>
-                <button onClick={goTo}>Voltar</button>
                 <button onClick={goToLogin}>Login</button>
-                <button onClick={signUp}>Enviar</button>
+                <button type={"submit"} onClick={signUp}>
+                  Enviar
+                </button>
               </ButtonContainer>
             </FormContainer>
           </SignUpPageContainer>

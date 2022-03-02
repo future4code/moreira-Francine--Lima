@@ -9,27 +9,39 @@ import thumbDown from "../../assets/thumbs-down.png";
 import { useEffect } from "react";
 import { usePutDownVote } from "../../Hooks/usePutDownVote";
 import { usePostUpvote } from "../../Hooks/usePostUpvote";
-import CommentSection from "../CommentSection/CommentSection";
+import { useDeleteVote } from "../../Hooks/useDeleteVote";
+import { useState } from "react";
 function FeedPost(props) {
+  const [userVote, setUserVote] = useState(props.userVote);
   //axios post Upvote
-  const { onPostVote, isVoted } = usePostUpvote(`/posts/${props.id}/votes`);
+  const { onPostVote } = usePostUpvote(`/posts/${props.id}/votes`);
   //onPostDowVote
-  const { onDownvote, isDownVoted } = usePutDownVote(
-    `/posts/${props.id}/votes`
-  );
-  useEffect(() => {
-    props.getData();
-  }, [isVoted]);
-  useEffect(() => {
-    props.getData();
-  }, [isDownVoted]);
+  const { onDownvote } = usePutDownVote(`/posts/${props.id}/votes`);
+  // on delete vote
+  const deleteVote = useDeleteVote(`/posts/${props.id}/votes`);
+  //User change vote or delete
+  const onDownVotes = (id) => {
+    if (userVote === -1) {
+      deleteVote(id);
+      setUserVote(0);
+    } else {
+      onDownvote(id);
+      setUserVote(-1);
+    }
+  };
+  const onUpVotes = (id) => {
+    if (userVote === 1) {
+      deleteVote(id);
+      setUserVote(0);
+    } else {
+      onPostVote(id);
+      setUserVote(1);
+    }
+  };
 
-  <CommentSection
-    username={props.username}
-    title={props.title}
-    body={props.body}
-    votes={props.voteSum}
-  />;
+  useEffect(() => {
+    props.getData();
+  }, [onDownVotes, onUpVotes, deleteVote]);
 
   return (
     <div>
@@ -42,16 +54,13 @@ function FeedPost(props) {
         <BottomPostContainer>
           <div>
             <img
-              onClick={() => onPostVote(props.id)}
+              onClick={() => onUpVotes(props.id)}
               src={thumbUp}
               alt="voto positivo"
             />
-            <p>
-              {props.voteSum}
-              {/* {props.voteSum < 0 || !props.voteSum ?  0 : props.voteSum} */}
-            </p>
+            <p>{props.voteSum}</p>
             <img
-              onClick={() => onDownvote(props.id)}
+              onClick={() => onDownVotes(props.id)}
               src={thumbDown}
               alt="voto negativo"
             />

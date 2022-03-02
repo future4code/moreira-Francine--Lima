@@ -1,28 +1,21 @@
 import { useState } from "react";
 import axios from "axios";
-
 import { BaseUrl, token } from "../constants/constants";
+
 export const useGet = (path) => {
   const [data, setData] = useState([]);
 
   // //Axios get posts
 
-  const getData = () => {
+  const getData = async () => {
     const header = { headers: { Authorization: token } };
-    axios
-      .get(BaseUrl + path, header)
-      .then((res) => {
-        setData(res.data);
-      })
-
-      .catch((err) => {
-        console.log(err.response);
-      });
+    try {
+      const resp = await axios.get(BaseUrl + path, header);
+      setData(resp.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
-  // useEffect(() => {
-  //   getPosts();
-  // }, []);
 
   return { data, getData };
 };

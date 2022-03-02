@@ -16,7 +16,7 @@ function Header() {
         alt="icone para home"
         onClick={goToHome}
       />
-      <p>LabEddit</p>
+      <div>LabEddit</div>
     </Headers>
   );
 }

@@ -1,21 +1,17 @@
 import axios from "axios";
 import { headerPosts, BaseUrl } from "../constants/constants";
-import { useState } from "react";
 
 export const usePostUpvote = (url) => {
-  const [isVoted, setIsVoted] = useState(false);
   const body = { direction: +1 };
   const onPostVote = () => {
     axios
       .post(BaseUrl + url, body, headerPosts)
       .then((res) => {
-        console.log("yeah!", res);
-        setIsVoted(!isVoted);
+        console.log(res);
       })
       .catch((err) => {
-        console.log("ixe", err.response);
+        console.log(err.response);
       });
   };
-  return { onPostVote, isVoted };
+  return { onPostVote };
 };
-// posts/${id}/votes

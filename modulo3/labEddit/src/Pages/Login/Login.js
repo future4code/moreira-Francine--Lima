@@ -12,7 +12,7 @@ function Login() {
     password: "",
   });
   const navigate = useNavigate();
-  const { goTo } = useChangePage("/");
+  const { goTo } = useChangePage("/signup");
   const onLogin = (e) => {
     e.preventDefault();
     clearForm();
@@ -24,8 +24,10 @@ function Login() {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         navigate("/feed");
+        console.log(res.data)
       })
       .catch((err) => {
+        console.log(err)
         alert("Email ou senha incorreta, por favor tente novamente.");
       });
   };
@@ -53,12 +55,15 @@ function Login() {
               onChange={onChangeForm}
               value={form.password}
               required
+              autoComplete="on"
               pattern={"^.{8,30} "}
               title="A senha deve conter mais que oito caracteres e menos de trinta caracteres."
             />
             <ButtonContainer>
-              <button onClick={goTo}>Voltar</button>
-              <button onClick={loginUser}>Enviar</button>
+              <button onClick={goTo}>Cadastrar</button>
+              <button type={"submit"} onClick={loginUser}>
+                Enviar
+              </button>
             </ButtonContainer>
           </FormContainer>
         </LoginPageContainer>

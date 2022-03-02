@@ -5,9 +5,13 @@ import SignUp from "./Pages/SignUp/SignUp";
 import Feed from "./Pages/Feed/Feed";
 import CommentSection from "./Pages/CommentSection/CommentSection";
 import { useGet } from "../src/Hooks/useGet";
+import { useEffect } from "react";
 function App() {
-  const { data, getData } = useGet("/posts?page=2");
-
+  //paginação (link/?page=10 ou link/?size=10  )
+  const { data, getData } = useGet("/posts?size=10");
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
@@ -22,7 +26,7 @@ function App() {
         <Route
           exact
           path={"/comments/:id"}
-          element={<CommentSection getData={getData} data={data} />}
+          element={<CommentSection getDataPost={getData} posts={data} />}
         />
         {/* //To set a default route in case of no match*/}
         <Route
