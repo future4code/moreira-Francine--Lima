@@ -1,7 +1,7 @@
 import { useChangePage } from "../../Hooks/useChangePage";
 import Header from "../../components/Header/Header";
 import { useProtectedPage } from "../../Hooks/useProtectedPage";
-import { CommentBox, CommentTextBox } from "./style";
+import { ButtonFeed, CommentBox, CommentTextBox } from "./style";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGet } from "../../Hooks/useGet";
 import { useEffect, useState } from "react";
@@ -76,12 +76,12 @@ function CommentSection(props) {
   return (
     <>
       <Header />
-      <div>Comentários</div>
-      <button onClick={goTo}>Feed</button>
+      <ButtonFeed onClick={goTo}>Feed</ButtonFeed>
       {postInfo}
       <CommentBox>
         <form onSubmit={onComment}>
           <CommentTextBox
+            placeholder="Escreva um comentário"
             type="text"
             name={"body"}
             onChange={onChangeForm}

@@ -1,6 +1,7 @@
 import {
   PostContainerReceivedComments,
   BottomPostContainerReceivedComments,
+  PostContainer,
 } from "./style";
 import thumbUp from "../../assets/thumbs-up.png";
 import thumbDown from "../../assets/thumbs-down.png";
@@ -13,9 +14,7 @@ function CommentSectionPage(props) {
   //axios post Upvote
   const { onPostVote } = usePostUpvote(`/comments/${props.id}/votes`);
   //axios put downvote
-  const { onDownvote} = usePutDownVote(
-    `/comments/${props.id}/votes`
-  );
+  const { onDownvote } = usePutDownVote(`/comments/${props.id}/votes`);
   const deleteVote = useDeleteVote(`/comments/${props.id}/votes`);
   //User change vote or delete
   const onDownVotes = (id) => {

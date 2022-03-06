@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import background from "../../assets/background.png";
 export const FeedContainer = styled.div`
   font-family: monospace;
   display: flex;
@@ -145,9 +144,7 @@ export const PostContainer = styled.div`
   width: 300px;
   height: 280px;
   margin-top: 40px;
-  /* background-image: url(${background}); */
   background-color: #f9d745;
-  /* border: 3px dotted #f9d745; */
   border: 5px dotted #59d48f;
   cursor: pointer;
   article {

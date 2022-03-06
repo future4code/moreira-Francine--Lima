@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { LoginPageContainer, FormContainer, ButtonContainer } from "./style";
 import { useChangePage } from "../../Hooks/useChangePage";
 function Login() {
+  const navigate = useNavigate();
+  const { goTo } = useChangePage("/signup");
   const { form, onChangeForm, clearForm } = useForm({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
-  const { goTo } = useChangePage("/signup");
   const onLogin = (e) => {
     e.preventDefault();
     clearForm();
@@ -24,10 +24,10 @@ function Login() {
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         navigate("/feed");
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         alert("Email ou senha incorreta, por favor tente novamente.");
       });
   };
