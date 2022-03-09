@@ -7,36 +7,22 @@ import thumbUp from "../../assets/thumbs-up.png";
 import thumbDown from "../../assets/thumbs-down.png";
 import { usePutDownVote } from "../../Hooks/usePutDownVote";
 import { usePostUpvote } from "../../Hooks/usePostUpvote";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDeleteVote } from "../../Hooks/useDeleteVote";
-
+import { useChangeVotes } from "../../Hooks/useChangeVotes";
 function PostInfoCard(props) {
-  const [userVote, setUserVote] = useState(props.userVotePost);
   //axios post Upvote
   const { onPostVote } = usePostUpvote(`/posts/${props.idPost}/votes`);
   //axios put downvote
   const { onDownvote } = usePutDownVote(`/posts/${props.idPost}/votes`);
   const deleteVote = useDeleteVote(`/posts/${props.idPost}/votes`);
 
-  const onDownVotes = (id) => {
-    if (userVote === -1) {
-      deleteVote(id);
-      setUserVote(0);
-    } else {
-      onDownvote(id);
-      setUserVote(-1);
-    }
-  };
-  const onUpVotes = (id) => {
-    if (userVote === 1) {
-      deleteVote(id);
-      setUserVote(0);
-    } else {
-      onPostVote(id);
-      setUserVote(1);
-    }
-  };
- 
+  const { onDownVotes, onUpVotes } = useChangeVotes(
+    deleteVote,
+    onDownvote,
+    onPostVote
+  );
+
   useEffect(() => {
     props.getDataPosts();
   }, [onUpVotes, onDownVotes]);

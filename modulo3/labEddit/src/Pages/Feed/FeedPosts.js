@@ -10,9 +10,8 @@ import { useEffect } from "react";
 import { usePutDownVote } from "../../Hooks/usePutDownVote";
 import { usePostUpvote } from "../../Hooks/usePostUpvote";
 import { useDeleteVote } from "../../Hooks/useDeleteVote";
-import { useState } from "react";
+import { useChangeVotes } from "../../Hooks/useChangeVotes";
 function FeedPost(props) {
-  const [userVote, setUserVote] = useState(props.userVote);
   //axios post Upvote
   const { onPostVote } = usePostUpvote(`/posts/${props.id}/votes`);
   //onPostDowVote
@@ -20,24 +19,11 @@ function FeedPost(props) {
   // on delete vote
   const deleteVote = useDeleteVote(`/posts/${props.id}/votes`);
   //User change vote or delete
-  const onDownVotes = (id) => {
-    if (userVote === -1) {
-      deleteVote(id);
-      setUserVote(0);
-    } else {
-      onDownvote(id);
-      setUserVote(-1);
-    }
-  };
-  const onUpVotes = (id) => {
-    if (userVote === 1) {
-      deleteVote(id);
-      setUserVote(0);
-    } else {
-      onPostVote(id);
-      setUserVote(1);
-    }
-  };
+  const { onDownVotes, onUpVotes } = useChangeVotes(
+    deleteVote,
+    onDownvote,
+    onPostVote
+  );
 
   useEffect(() => {
     props.getData();
