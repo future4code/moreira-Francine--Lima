@@ -1,0 +1,19 @@
+{
+  "name": "template-node-npm",
+  "version": "1.0.0",
+  "description": "Primeira aula de backend dos Amoreiros!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Olá Moreira'",
+    "start":"clear && node src/index.js",
+    "bananinha":"clear && node src/index.js"
+    
+  },
+  "keywords": [
+    "node",
+    "package.json",
+    "backend"
+  ],
+  "author": "Labenu",
+  "license": "ISC"
+}
