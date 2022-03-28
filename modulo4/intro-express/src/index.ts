@@ -57,15 +57,13 @@ app.get("/posts", (req, res) => {
 
   res.send(postsData);
 });
+//8)
 app.get("/posts/:userId", (req, res) => {
   const userId = req.params.userId;
- 
-//  const postsId:Post[] =posts.map((user)=>{
 
-//  })
-  const postsById:Post[] = posts.filter((user) => {
-         return Number(userId)===user.id
+  const postsId: Post[] = posts.filter((user) => {
+    return Number(userId) === user.userId;
   });
- 
-  res.send(postsById)
-})
+
+  res.send(postsId);
+});
