@@ -28,6 +28,7 @@ app.post("/addprod", (req, res) => {
     price: req.body.price,
   };
   if (req.body.name && req.body.price) {
+    //const newProds=[...data,newProd] //o spread faz o mesmo do codigo abaixo
     data.push(newProd); //.push retorna um numero o lenght da array
     res.status(201).send(data); //não posso passar números como argumento do .send(4)= err
   } else {
@@ -41,47 +42,68 @@ app.get("/all", (req, res) => {
 //5 Edita o preço
 app.put("/editprice/:id", (req, res) => {
   const inputId = req.params.id;
-
   const newPrice = req.body.price;
 
-  const findProd = data.find((prod) => {
-    return prod.id === Number(inputId);
-  });
-  console.log("find", findProd);
-
-  if (findProd) {
-    // const prodChosen = data.filter((prod) => {
-    //   return prod.id === Number(inputId);
-    // });
-    const newArray = [findProd].map((prod) => {
+  data
+    .filter((prod) => {
+      return prod.id === Number(inputId);
+    })
+    .map((prod) => {
       prod.price = newPrice;
       return prod;
     });
-    //   console.log("filter",prodChosen);
-    console.log("map", newArray);
-    res.send(newArray);
-  } else {
-    throw new Error("Informações incompletas no body");
-  }
+  res.status(201).send(data);
 });
+//   if (findProd) {
+//     // const prodChosen = data.filter((prod) => {
+//     //   return prod.id === Number(inputId);
+//     // });
+//     const newArray = [findProd].map((prod) => {
+//       prod.price = newPrice;
+//       return prod;
+//     });
+//     //   console.log("filter",prodChosen);
+//     console.log("map", newArray);
+//     res.status(201).send(newArray);
+//   } else {
+//     throw new Error("Informações incompletas ou incorretas no body");
+//   }
+// });
 //6
 app.delete("/removeprod/:idProd", (req, res) => {
-  const inputId = req.params.idProd;
+  const idProd = req.params.idProd;
+
   const findProd = data.find((prod) => {
-    return prod.id === Number(inputId);
+    return prod.id === Number(idProd);
   });
-  console.log("find", findProd);
 
   if (findProd) {
-    const prodLeft = data.filter((prod) => {
-      return prod.id !== Number(inputId);
+    const newListProd = data.filter((prod) => {
+      return prod.id !== Number(idProd);
     });
-
-    console.log("filter", prodLeft);
-
-    res.send(prodLeft);
+    res.send(newListProd);
   } else {
-    throw new Error("Deu erro");
+    throw new Error("Insira um id válido");
   }
+
+  // const inputId = req.params.idProd;
+
+  // const findProd = data.find((prod) => {
+  //   return prod.id === Number(inputId);
+  // });
+  // console.log("find", findProd);
+
+  // if (findProd) {
+  //   const prodLeft = data.filter((prod) => {
+  //     return prod.id !== Number(inputId);
+  //   });
+
+  //   console.log("filter", prodLeft);
+
+  //   res.send(prodLeft);
+  // } else {
+  //   throw new Error("Deu erro");
+  // }
 });
-7; //
+
+//7
