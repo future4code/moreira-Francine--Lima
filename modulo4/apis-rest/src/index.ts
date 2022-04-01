@@ -44,7 +44,7 @@ app.get("/users/:type", (req, res) => {
     console.log(user);
     if (user.length === 0) {
       errorCode = 404;
-      throw new Error("O tipo digitado não existeaa.");
+      throw new Error("O tipo digitado não existe.");
     }
     res.status(200).send(user);
   } catch (error: any) {
@@ -56,7 +56,7 @@ app.get("/users/:type", (req, res) => {
 //Path Params
 //b. Altere este endpoint para que ele devolva uma mensagem de erro caso nenhum usuário tenha sido encontrado.
 app.get("/user", (req, res) => {
-  //query param "/users?name=Bob"
+  //query param "/user?name=Bob"
   let errCode: number = 404;
   try {
     const name: string = req.query.name as string;
