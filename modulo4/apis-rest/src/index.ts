@@ -3,8 +3,6 @@ import cors from "cors";
 import { AddressInfo } from "net";
 import { users } from "./data";
 import { Users, UserType } from "./type";
-import { error } from "console";
-import { Agent } from "http";
 
 const app = express();
 
