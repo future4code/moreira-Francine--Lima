@@ -1,1 +1,141 @@
-oi
+```#USE `moreira-21712166-francine-lima`;
+
+#SET SQL_SAFE_UPDATES = 0;
+
+#1
+/*a)
+ALTER TABLE Actor DROP COLUMN salary;
+Alter table= altera a tabela "Actor"
+drop column= exclui coluna "salary"
+*/
+/*b)
+ALTER TABLE Actor CHANGE gender sex VARCHAR(6);
+Alter table= altera a tabela "Actor"
+Change= muda o "gender" para o nome "sex" e o tipo VARCHAR(6), sendo 6 o número de caracteres aceitos.
+*/
+/*c)
+ALTER TABLE Actor CHANGE gender gender VARCHAR(255);
+Alter table= altera a tabela "Actor"
+Change= muda o "gender" para o tipo VARCHAR(255) sendo 255 o número de caracteres aceitos.
+
+*/
+/*d)
+ALTER TABLE Actor CHANGE gender gender VARCHAR(100);
+
+
+*/
+#2
+/*a)
+UPDATE Actor
+SET name= "Moacyr Franco", birth_date="1999/02/02",
+WHERE id="003";
+*/
+/*b.1)
+UPDATE Actor
+SET name="JULIANA PAES",
+WHERE name="Juliana Paes";
+*/
+/*b.2)
+UPDATE Actor
+SET name="Juliana Paes",
+WHERE name="JULIANA PAES";
+*/
+/*c)
+UPDATE Actor
+SET name="Xuxa", salary=100000, birth_date="1999/02/31", gender="female", id="10",
+WHERE id="005";
+*/
+/*d)
+UPDATE Actor
+SET name="UhhErro",
+WHERE id="200";
+Response: 0 row(s) affected Rows matched: 0  Changed: 0  Warnings: 0
+Não deu erro, proém não realizou a atualização por que o id não existe no banco de dados
+
+*/
+#3
+/*a)
+DELETE FROM Actor WHERE name="Fernanda Montenegro";
+*/
+/*b)
+DELETE FROM Actor
+WHERE gender="male AND salary>100000000;
+*/
+#4
+/*a)
+SELECT MAX(salary) FROM Actor;
+*/
+/*b)
+SELECT MIN(salary) FROM Actor WHERE gender="female";
+*/
+/*c)
+SELECT COUNT(*) 
+FROM Actor 
+WHERE gender="female"; 
+*/
+/*d)
+SELECT SUM(salary) FROM Actor;
+*/
+
+#4
+/*a)
+SELECT COUNT(*), gender
+FROM Actor
+GROUP BY gender;
+Essa query conta a quantidade de linhas da tabela por diferentes generos presentes também na tabelas
+ela retorna o parametro adicionado "gender" e também o número de linhas da tabela que possuem o "gender" "male" ou "female"
+//tabela retornada
+COUNT(*)|gender
+2       |male
+4       |female
+
+*/
+/*b)
+SELECT id,name FROM Actor ORDER BY name DESC; 
+*/
+/*c)
+SELECT * FROM Actor ORDER BY salary;
+*/
+/*d)
+SELECT * FROM Actor ORDER BY DESC LIMIT 3;
+*/
+/*e)
+SELECT AVG(salary), gender
+FROM Actor
+GROUP BY gender;
+*/
+#6
+/*a)
+ALTER TABLE Actor 
+ADD playing_limit_date DATE;
+*/
+/*b)
+ALTER TABLE Actor 
+CHANGE avaliacao avaliacao FLOAT;
+*/
+/*c)
+UPDATE Actor
+SET playing_limit_date="2002/05/15"
+WHERE id="001";
+
+UPDATE Actor
+SET playing_limit_date="2022/05/01"
+WHERE id="002"
+
+
+*/
+/*d)
+DELETE FROM Movie WHERE id = "001"
+
+UPDATE movie
+SET avaliacao=9
+WHERE id="001";
+
+Response: 0 row(s) affected Rows matched: 0  Changed: 0  Warnings: 0
+Não deu erro, proém não realizou a atualização por que o id não existe mais no banco de dados.
+
+*/
+
+#show tables;
+#select * from Actor;
+```
