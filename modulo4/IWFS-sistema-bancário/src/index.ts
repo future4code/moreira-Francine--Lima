@@ -255,3 +255,93 @@ app.post("/accounts/wire", (req, res) => {
     res.status(err).send(e.message);
   }
 });
+
+//paying bills
+app.post("/accounts/payBill", (req, res) => {
+  let err = 400;
+  const authSender = req.headers.authorization as string;
+
+  //body
+  const newTransaction: Transaction = {
+    amount: req.body.amount,
+    date: req.body.date,
+    description: `${req.body.description}`,
+  };
+
+  //current date
+  const date = new Date();
+  let currYear: number = date.getFullYear();
+  let currMonth: number = date.getMonth() + 1;
+  let currDay: number = date.getDate();
+  const currDate = `${currDay}/${currMonth}/${currYear}`;
+
+  //function calculate date
+  function isDateInFuture(date: string): boolean {
+    const splitDate = date.split("/");
+    const yearDate: number = Number(splitDate[2]);
+    const monthDate: number = Number(splitDate[1]);
+    const dayDate: number = Number(splitDate[0]);
+    if (currMonth <= monthDate && currYear <= yearDate && currDay <= dayDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // filtering client
+  const isClient: Account[] | undefined = accounts.filter((user) => {
+    return user.cpf === authSender;
+  });
+
+  //new payment
+  try {
+    if (
+      !accounts.find((user) => {
+        return user.cpf === authSender;
+      })
+    ) {
+      err = 404;
+      throw new Error("O CPF digitado não está cadastrado no banco de dados.");
+    }
+    if (
+      !req.body.description ||
+      !req.body.amount ||
+      typeof req.body.amount !== "number"
+    ) {
+      err = 422;
+      throw new Error(
+        "As informações enviadas estão incorretas ou não foram digitadas."
+      );
+    }
+    if (!isDateInFuture(req.body.date)) {
+      err = 422;
+      throw new Error(
+        "As informações enviadas estão incorretas por favor digite uma data no futuro."
+      );
+    }
+    if (
+      isClient.some((account) => {
+        return account.balance < req.body.amount;
+      })
+    ) {
+      err = 401;
+      throw new Error(
+        "Você não possui saldo suficiente para realizar essa transação."
+      );
+    }
+    //access transactions and add a new transaction
+    const mapTransactions = isClient.map((account) => {
+      account.transactions.push(newTransaction);
+      return account.transactions;
+    });
+
+    console.log(isClient);
+    res.status(200).send(
+      isClient.map((account) => {
+        account.balance = account.balance - req.body.amount;
+        return "Saldo: R$ " + account.balance;
+      })
+    );
+  } catch (e: any) {
+    res.status(err).send(e.message);
+  }
+});

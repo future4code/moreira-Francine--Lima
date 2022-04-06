@@ -18,7 +18,7 @@ export const accounts: Account[] = [
   {
     name: "Angela",
     birthday: "19/11/2000",
-    cpf: "04488877720",
+    cpf: "04488877730",
     balance: 500,
     transactions: [{ amount: 50, date: "14/01/2021", description: "blabla" }],
   },
