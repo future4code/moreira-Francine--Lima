@@ -73,8 +73,9 @@ VALUES(
 
 #b)
 
-/*SELECT m.id as movie_id, r.rate as rating FROM movie m
-INNER JOIN Rating r ON m.id = r.movie_id;*/
+/*SELECT movie_id,rate
+FROM movie
+INNER JOIN Rating
+ON movie.id = Rating.movie_id;*/
 
-#SELECT * FROM Rating;
 ```
