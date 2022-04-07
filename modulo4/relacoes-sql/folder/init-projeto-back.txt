@@ -1,0 +1,126 @@
+1- npm init
+2-npm install typescript @types/node ts-node-dev
+3-tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+    "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+    "outDir": "./build" /* Redirect output structure to the directory. */,
+    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "strict": true /* Enable all strict type-checking options. */,
+ "useUnknownInCatchVariables": false,   
+ "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+  }
+}
+
+4-criar script
+   "start": "tsc && node ./build/index.js",
+
+5-Express e cors
+npm i express cors
+npm install express @types/express
+
+6-
+O arquivo base tem que conter:
+
+- A criação do app `express`;
+- Colocar o `middleware` para converter o `body`;
+- Criar o servidor
+
+
+import express from "express";
+
+import { AddressInfo } from "net";
+
+const app = express();
+
+app.use(express.json());
+
+const server = app.listen(process.env.PORT || 3003, () => {
+  if (server) {
+    const address = server.address() as AddressInfo;
+    console.log(`Server is running in http://localhost:${address.port}`);
+  } else {
+    console.error(`Failure upon starting server.`);
+  }
+});
+
+
+NO TERMINAL CHEAT SHEET
+-----------------
+COMANDOS
+
+tsc --init
+
+npm init -y
+
+npm i express cors 
+
+npm i  @types/express @types/cors @types/node -D
+
+touch .gitignore 
+
+------------------------
+Montando o .gitignore
+
+// adicione ao arquivo .gitignore:
+
+node_modules
+package-lock.json
+build
+--------------------------
+CRIANDO O tsconfig.json
+
+{
+  "compilerOptions": {
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+    "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+    "outDir": "./build" /* Redirect output structure to the directory. */,
+    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "strict": true /* Enable all strict type-checking options. */,
+ "useUnknownInCatchVariables": false,   
+ "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+  }
+}
+
+--------------------------
+CRIANDO O SCRIPT DINAMICO
+
+
+  "scripts": {
+    "start1": "tsc && node ./build/index.js",
+    "start:dev": "ts-node-dev ./src/index.ts",
+    "start": "node ./build/index.js",
+    "build": "tsc"
+  },
+--------------------------
+CRIANDO O ARQUIVO BASE (INDEX.TS)
+
+O arquivo base tem que conter:
+
+- A criação do app `express`;
+- Colocar o `middleware` para converter o `body`;
+- Criar o servidor
+
+
+// no index.ts:
+
+import express, { Request, Response } from "express";
+import cors from "cors";
+import { AddressInfo } from "net";
+
+
+const app: Express = express();
+app.use(express.json());
+app.use(cors());
+
+const server = app.listen(process.env.PORT || 3003, () => {
+    if (server) {
+       const address = server.address() as AddressInfo;
+       console.log(`Server is running in http://localhost: ${address.port}`);
+    } else {
+       console.error(`Failure upon starting server.`);
+    }
+});
