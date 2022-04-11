@@ -22,3 +22,11 @@ const sendNotifications = async (
     console.log("Error please try again.");
   }
 };
+
+const main = async () => {
+   await sendNotifications(
+  [{id:"eb98add9-6981-41d6-8d9f-d63258486296",
+    email: 'pais.basco@labenu.com.br',
+    name: 'País, o Basco'}], "Olá")
+}
+main()

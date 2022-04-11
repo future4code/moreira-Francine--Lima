@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node ./build/index.js",
-    "dev-start": "ts-node-dev ./src/index.ts"
+    "dev-start": "ts-node-dev ./src/index.ts",
+    "start1": "tsc && node ./build/ex1.js",
+    "start2": "tsc && node ./build/ex2.js",
+    "start3": "tsc && node ./build/ex3.js",
+    "start4": "tsc && node ./build/ex4.js",
+    "start5": "tsc && node ./build/ex5.js",
+    "start6": "tsc && node ./build/ex6.js"
   },
   "keywords": [],
   "author": "",

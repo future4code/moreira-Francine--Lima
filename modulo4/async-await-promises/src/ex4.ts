@@ -8,6 +8,12 @@ const createNews = async (title: string, content: string): Promise<void> => {
     content: content,
     date: Date.now(),
   });
+  // console.log("oi")
 };
 
 //a) Arrow function, assíncrona.
+
+const main = async () => {
+  await createNews("Teste","Bem vindo ao teste!")
+};
+main();

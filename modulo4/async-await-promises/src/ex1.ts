@@ -9,12 +9,13 @@ import { baseUrl } from "./baseUrl";
 //b)Promise<any[]>
 
 //c)
-// async function getSubscribers(): Promise<any[]> {
-//   const response = await axios.get(`${baseUrl}/subscribers`)
-//   return response.data;
-// };
+async function getSubscribers(): Promise<any[]> {
+  const response = await axios.get(`${baseUrl}/subscribers`)
+  console.log(response.data)
+  return response.data;
+};
 
-// const main = () => {
-//   console.log(getSubscribers())
-// };
-// main()
+const main = async() => {
+  await getSubscribers()
+};
+main()
