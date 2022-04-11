@@ -57,7 +57,7 @@ const server = app.listen(process.env.PORT || 3003, () => {
 //       throw new Error("One or more fields are blank, please fill up the body.");
 //     }
 //     await connection("TodoListUser").insert({
-//       id: Date.now().toString(),
+//       id: req.body.id,
 //       name: req.body.name,
 //       nickname: req.body.nickname,
 //       email: req.body.email,
@@ -115,93 +115,159 @@ const server = app.listen(process.env.PORT || 3003, () => {
 // });
 
 //3 EDITAR USUÁRIO PELO ID
-app.put("/user/edit/:id", async (req: Request, res: Response) => {
-  let err = 404;
-  try {
-    const name = req?.body.name;
-    const nickname = req?.body.nickname;
-    const email = req?.body.email;
-    if (!req.body) {
-      err = 422;
-      throw new Error("Please fill the body.");
-    }
-    await connection("TodoListUser")
-      .update({
-        name: name,
-        nickname: nickname,
-        email: email,
-      })
-      .where({ id: req.params.id });
+// app.put("/user/edit/:id", async (req: Request, res: Response) => {
+//   let err = 404;
+//   try {
+//     const name = req?.body.name;
+//     const nickname = req?.body.nickname;
+//     const email = req?.body.email;
+//     if (!req.body) {
+//       err = 422;
+//       throw new Error("Please fill the body.");
+//     }
+//     await connection("TodoListUser")
+//       .update({
+//         name: name,
+//         nickname: nickname,
+//         email: email,
+//       })
+//       .where({ id: req.params.id });
 
-    res.status(201).send("Updated");
-  } catch (e: any) {
-    console.log(e);
-    res.status(404).send(e.message);
-  }
-});
+//     res.status(201).send("Updated");
+//   } catch (e: any) {
+//     console.log(e);
+//     res.status(404).send(e.message);
+//   }
+// });
 
 //COMO UTILIZAR PARAMETROS OPCIONAIS?? === req?.body.bla
 
 //4 CREATE TASK
-app.post("/task", async (req: Request, res: Response) => {
-  const splitDate = req.body.limit_date.split("/");
-  const newDate: string = `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`;
-  // console.log(splitDate);
-  // const month: string = splitDate[1];
-  // const day: string = splitDate[0];
-  // const year: string = splitDate[2];
+// app.post("/task", async (req: Request, res: Response) => {
+//   const splitDate = req.body.limit_date.split("/");
+//   const newDate: string = `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`;
+//   // console.log(splitDate);
+//   // const month: string = splitDate[1];
+//   // const day: string = splitDate[0];
+//   // const year: string = splitDate[2];
 
-  // console.log("day", day, "mes", month, "ano", year);
-  // console.log(newDate);
-  try {
-    await connection("TodoListTask").insert({
-      id: Date.now().toString(),
-      title: req.body.title,
-      description: req.body.description,
-      status: req.body.status,
-      limit_date: newDate,
-      creator_user_id: req.body.creator_user_id,
-    });
-    res.status(201).send("Created");
-  } catch (e: any) {
-    console.log(e);
-    res.status(404).send(e.message);
-  }
-});
+//   // console.log("day", day, "mes", month, "ano", year);
+//   // console.log(newDate);
+//   try {
+//     await connection("TodoListTask").insert({
+//       id: Date.now().toString(),
+//       title: req.body.title,
+//       description: req.body.description,
+//       status: req.body.status,
+//       limit_date: newDate,
+//       creator_user_id: req.body.creator_user_id,
+//     });
+//     res.status(201).send("Created");
+//   } catch (e: any) {
+//     console.log(e);
+//     res.status(404).send(e.message);
+//   }
+// });
 //5
-app.get("/task/:id", async (req: Request, res: Response) => {
-  const idParam = req.params.id;
-  try {
-    const result = await connection.raw(`
-  SELECT
-  TodoListTask.creator_user_id,
-  TodoListTask.id,
-  TodoListTask.title,
-  TodoListTask.description,
-  TodoListTask.status,
-  TodoListTask.limit_date,
-  TodoListUser.nickname
-  FROM TodoListTask
-  JOIN TodoListUser ON TodoListTask.id=${idParam}
-  `);
+// app.get("/task/:id", async (req: Request, res: Response) => {
+//   const idParam = req.params.id;
+//   try {
 
-    res.status(200).send(result.flat(1)[0]);
-  } catch (e: any) {
-    console.log(e);
-    res.status(404).send(e.message);
-  }
-});
-//6
-app.get("/user/all", async (req: Request, res: Response) => {
+//     const result = await connection.raw(`
+//   SELECT
+//   TodoListTask.creator_user_id,
+//   TodoListTask.id,
+//   TodoListTask.title,
+//   TodoListTask.description,
+//   TodoListTask.status,
+//   TodoListTask.limit_date,
+//   TodoListUser.nickname
+//   FROM TodoListTask
+//   JOIN TodoListUser ON TodoListTask.id=${idParam}
+//   `);
+
+//     res.status(200).send(result.flat(1)[0]);
+//   } catch (e: any) {
+//     console.log(e);
+//     res.status(404).send(e.message);
+//   }
+// });
+//6 GET ALL USERS ID AND NICKNAME
+// app.get("/user/all", async (req: Request, res: Response) => {
+//   try {
+
+//     // const result = await connection.raw(`
+//     // SELECT id,nickname
+//     // FROM TodoListUser
+//     // `);
+//     const result = await connection("TodoListUser").select("id", "nickname");
+//     if (!result) {
+//      res.status(200).send([]);
+//     }
+
+//     res.status(200).send(result);
+//   } catch (e: any) {
+//     console.log(e);
+//     res.status(404).send("Error please try again.");
+//   }
+// });
+//7
+// app.get("/task/:id", async (req: Request, res: Response) => {
+//   const idParam = req.params.id;
+//   let err = 404;
+//   // /task?creatorUserId=id
+//   try {
+//     // const splitDate = req.body.limit_date.split("/");
+//     // const newDate: string = `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`;
+
+//     if (!idParam) {
+//       err = 422;
+//       throw new Error("Fill the query params.");
+//     }
+
+//     const result = await connection.raw(`
+//   SELECT
+//   TodoListTask.creator_user_id,
+//   TodoListTask.id,
+//   TodoListTask.title,
+//   TodoListTask.description,
+//   TodoListTask.status,
+//   TodoListTask.limit_date,
+//   TodoListUser.nickname
+//   FROM TodoListTask
+//   JOIN TodoListUser ON TodoListTask.creator_user_id=${idParam}
+//   `);
+//     if (!result) {
+//       res.status(404).send([]);
+//     }
+
+//     const results = [result.flat(1)[0], result.flat(1)[1]];
+
+//     res.status(200).send(results);
+//   } catch (e: any) {
+//     console.log(e);
+//     res.status(404).send(e.message);
+//   }
+// });
+//8
+
+//9
+app.post("/task/responsible", async (req: Request, res: Response) => {
+  let err = 404;
   try {
-    // const result = await connection.raw(`
-    // SELECT id,nickname
-    // FROM TodoListUser
-    // `);
-    const result = await connection("TodoListUser").select("id", "nickname");
-    res.status(200).send(result);
+    if (!req.body.task_id || !req.body.responsible_user_id) {
+      err = 422;
+      throw new Error(
+        "One of the fields is blank, please fill the body correctly."
+      );
+    }
+    await connection("TodoListResponsibleUserTaskRelation").insert({
+      task_id: req.body.task_id,
+      responsible_user_id: req.body.responsible_user_id,
+    });
+    res.status(201).send("Crated")
   } catch (e: any) {
     console.log(e);
-    res.status(404).send("Error please try again.");
+    res.status(err).send(e.message);
   }
 });
