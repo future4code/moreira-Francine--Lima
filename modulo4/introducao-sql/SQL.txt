@@ -1,0 +1,161 @@
+```
+USE `moreira-21712166-francine-lima`;
+```
+ /*CREATE TABLE Actor (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR (255) NOT NULL,
+    salary FLOAT NOT NULL,
+    birth_date DATE NOT NULL,
+    gender VARCHAR(6) NOT NULL
+);
+*/
+/*
+1-a)
+Comandos:
+VARCHAR(n) texto com (n) númerode caracteres,
+PRIMARY KEY chave primária, chave de identificação de cada linha da tabela,
+NOT NULL não nulo, indica que o valor a ser salvo não pode ser nulo, deve ser um valor válido,
+DATE indica uma data no formato YYYY/MM/DD,
+FLOAT representa um número não inteiro em uma tabela.
+b)
+*/;
+
+#SHOW DATABASES;
+/*
+O SHOW DATABASES mostra as databases existentes.
+*/
+#SHOW TABLES;
+/*
+O SHOW TABLES mostra as tabelas existentes.
+*/
+#DESCRIBE Actor;
+/*
+O DESCRIBE (table-name) mostra  os dados existentes dentro de uma tabela descrevendo-os.
+*/
+/*INSERT INTO Actor (id, name, salary, birth_date, gender)
+VALUES(
+  "001", 
+  "Tony Ramos",
+  400000,
+  "1948-08-25", 
+  "male"
+);
+*/
+#2a)
+/* INSERT INTO Actor(id,name,salary,birth_date,gender)
+VALUES(
+"002",
+"Glória Pires",
+1200000,
+"1963-08-23",
+"female");
+ */
+#2c)
+#Duplicate entry "002" for key PRIMARY, Entrada duplicada "002" para a chave primária, basicamente a PK é uma chave única de identificação da tabela e não pode ser duplicada.
+#2c)
+#O numéro de colunas é menor que o número de linhas, ou seja faltam keys para os values. 
+
+/* INSERT INTO Actor (id, name, salary,birth_date,gender)
+VALUES(
+  "003", 
+  "Fernanda Montenegro",
+  300000,
+  "1929-10-19", 
+  "female"
+);
+*/
+
+#2d) O campo name não tem um valor padrão, e como não pode ser nulo, o SQL mostra um erro.
+/* INSERT INTO Actor (id, salary, birth_date, gender)
+VALUES(
+  "004",
+  400000,
+  "1949-04-18", 
+  "male"
+);
+*/
+#2e) O campo name não tem um valo padrão, e como não pode ser nulo, o SQL mostra um erro.
+/* INSERT INTO Actor (id, name, salary, birth_date, gender)
+VALUES(
+  "005", 
+  "Juliana Paes",
+  719333.33,
+  "1979-03-26", 
+  "female"
+);
+*/
+#2f)
+/*INSERT INTO Actor (id, name, salary, birth_date, gender)
+VALUES(
+  "004", 
+  "Fernanda Montenegro",
+  300000,
+  "1929-10-19", 
+  "female"
+);
+*/
+/*INSERT INTO Actor (id, name, salary, birth_date, gender)
+VALUES(
+  "006", 
+  "Antônio Fagundes",
+  400000,
+  "1949-04-18", 
+  "male"
+);*/
+
+#3a)
+#SELECT * FROM Actor;
+#SELECT id, salary from Actor;
+#SELECT id, name from Actor WHERE gender = "male";
+#a)
+#SELECT * from Actor WHERE gender = "female";
+#b)
+#SELECT name,salary from Actor WHERE name="Tony Ramos";
+#c)
+#SELECT name from Actor WHERE gender="invalid";
+#Não retornou nenhum resultado pois não há correspondênci no banco de dados
+#d)
+#SELECT name,id ,salary FROM Actor WHERE salary<=500000;
+#e)nome não é uma key válida
+#SELECT id, name from Actor WHERE id = "002";
+#4)
+#SELECT * FROM Actor WHERE (name LIKE "A%" OR name LIKE "J%") AND salary > 300000;
+#a) A query faz uma busca por nomes que iniciam com A e J usando LIKE "A%", % indica uma string genérica, também usamos o AND que possui a mesma função do &&.
+#b) 
+#SELECT * FROM Actor WHERE (name NOT LIKE "A%") AND salary > 350000;
+#c) Palavra que contenha a letra G
+#SELECT * FROM Actor WHERE (name LIKE "%g%" OR name LIKE "%G%");
+#d)
+#SELECT * FROM Actor WHERE (name LIKE "%g%" OR name LIKE "%G%" or name LIKE "%A%" OR name LIKE "%a%") AND salary BETWEEN 350000 AND 900000;
+#5a)
+/*CREATE TABLE movie(
+id VARCHAR(255) PRIMARY KEY,
+nome VARCHAR(255) NOT NULL,
+dataLançamento DATE NOT NULL,
+sinopse TEXT NOT NULL,
+avaliacao FLOAT);
+*/
+#b)
+/*INSERT INTO movie (id, nome,dataLançamento, sinopse, avaliacao)
+VALUES(
+  "004", 
+  "O Auto da Compadecida",
+   "2000-09-10",
+   "As aventuras dos nordestinos João Grilo (Matheus Natchergaele), um sertanejo pobre e mentiroso, e Chicó (Selton Mello), o mais covarde dos homens. Ambos lutam pelo pão de cada dia e atravessam por vários episódios enganando a todos do pequeno vilarejo de Taperoá, no sertão da Paraíba",
+    9.3
+);
+*/
+#6a)
+/*SELECT id, nome, avaliacao from movie WHERE id = "002"; */
+#b)
+#SELECT id, nome,dataLançamento, sinopse, avaliacao FROM movie WHERE nome="O Auto da Compadecida";
+#c)
+#SELECT id, nome, sinopse FROM movie WHERE avaliacao>=7;
+#7a)
+#SELECT * FROM movie WHERE (nome LIKE"%vida%");
+#b)
+#SELECT * FROM movie WHERE (nome LIKE"%vida%" OR sinopse LIKE "%vida%");
+#c)
+#SELECT * FROM movie WHERE dataLançamento < "2020-05-04";
+#d)
+#SELECT * FROM movie WHERE (nome LIKE"%vida%" OR sinopse LIKE "%vida%" AND avaliacao>7);
