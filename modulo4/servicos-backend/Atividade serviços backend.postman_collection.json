@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "be0e0caa-fb4a-4802-b579-e7b3f246ae24",
+		"name": "Atividade serviços backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://viacep.com.br/ws/:cep/json/",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						":cep",
+						"json",
+						""
+					],
+					"variable": [
+						{
+							"key": "cep",
+							"value": "13165040"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get address",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://viacep.com.br/ws/:cep/json/",
+							"protocol": "https",
+							"host": [
+								"viacep",
+								"com",
+								"br"
+							],
+							"path": [
+								"ws",
+								":cep",
+								"json",
+								""
+							],
+							"variable": [
+								{
+									"key": "cep",
+									"value": "13165040"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.20.2"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 14 Apr 2022 02:51:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 14 Apr 2022 03:51:32 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=3600"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "public"
+						},
+						{
+							"key": "Pragma",
+							"value": "public"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, OPTIONS"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "Accept, Content-Type, X-Request-With, X-Requested-With, X-Requested-By, X-HTTP-Method-Override"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Access-Control-Max-Age",
+							"value": "86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"cep\": \"13165-040\",\n    \"logradouro\": \"Rua João Luiz Machado\",\n    \"complemento\": \"de 100/101 a 298/299\",\n    \"bairro\": \"Jardim da Saudade\",\n    \"localidade\": \"Artur Nogueira\",\n    \"uf\": \"SP\",\n    \"ibge\": \"3503802\",\n    \"gia\": \"1879\",\n    \"ddd\": \"19\",\n    \"siafi\": \"6175\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ansa\", \"nickname\":\"csi\", \"email\":\"frass@gmail.com\", \"cep\":\"13165040\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create user",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Franixs\", \"nickname\":\"cisnexss\", \"email\":\"franxsss@gmail.com\", \"cep\":\"13165040\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8-c1tebmnnSG13Gaf5H/UMoiI2zf0\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 14 Apr 2022 02:27:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "Created!"
+				}
+			]
+		}
+	]
+}
