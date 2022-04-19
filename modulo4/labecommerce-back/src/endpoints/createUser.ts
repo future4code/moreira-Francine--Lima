@@ -27,7 +27,7 @@ export default async function createUser(
 
     //inserting user into databank
     await connection("labecommerce_users").insert({
-      id: "003",
+      id: Date.now().toString(),
       name,
       email,
       password,
@@ -35,6 +35,9 @@ export default async function createUser(
 
     res.status(201).send("User created!");
   } catch (error: any) {
+  
+   
+   
     if (typeof error === "string") {
       res.send(error);
     } else {
