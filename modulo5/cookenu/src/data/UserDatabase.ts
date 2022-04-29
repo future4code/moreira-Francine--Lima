@@ -4,7 +4,7 @@ import connection from "./connection";
 export class UserDatabase {
   public async createUser(user: User) {
     try {
-      await connection("Users_Hacka").insert({
+      await connection("login_users").insert({
         id: user.getId(),
         name: user.getName(),
         email: user.getEmail(),
@@ -18,7 +18,7 @@ export class UserDatabase {
   //find user by email and check if is signed up or not
   public async findUserByEmail(email: string): Promise<User> {
     try {
-      const user = await connection("Users_Hacka")
+      const user = await connection("login_users")
         .select("*")
         .where({ email: email });
       return user[0] && User.toUserModel(user[0]);
@@ -30,7 +30,7 @@ export class UserDatabase {
   //get all users
   public async getAllUsers(): Promise<User[]> {
     try {
-      const allUsersDatabase = await connection("Users_Hacka").select(
+      const allUsersDatabase = await connection("login_users").select(
         "id",
         "name",
         "email",
@@ -41,11 +41,11 @@ export class UserDatabase {
       throw new Error(e.sqlMessage || e.message);
     }
   }
-  //get user info
+  //get user info and  //get user by id
   public async getUserInfo(id: string): Promise<User[]> {
     try {
-      const userInfoDatabase = await connection("Users_Hacka")
-        .select("id", "email")
+      const userInfoDatabase = await connection("login_users")
+        .select("id", "name", "email")
         .where({ id: id });
       return userInfoDatabase.map((user) => User.toUserModel(user));
     } catch (e: any) {
