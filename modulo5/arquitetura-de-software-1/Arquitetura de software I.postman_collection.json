@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "eac5f3fb-33b6-4995-b54b-7c984ab840ee",
+		"name": "Arquitetura de software I",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\":\"Francine\",\r\n\"email\":\"a@a.com\",\r\n\"password\":\"1234567\",\r\n\"role\":\"ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"email\":\"a@a.com\",\r\n\"password\":\"1234567\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZTNiYWM5LWI4NzEtNDdlYy1iMTJjLWZlZWZlYzcwNWIzMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTYwNTA1MSwiZXhwIjoxNjUxNjA2NDkxfQ.Ef7Tr74vPx_nv2-e5qrqUjGiiI9AZDOEVtx5IXN__Ws",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3003/user/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhZTNiYWM5LWI4NzEtNDdlYy1iMTJjLWZlZWZlYzcwNWIzMCIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTYwNzEzNCwiZXhwIjoxNjUxNjA4NTc0fQ.--PsDWf6TuYKzw14jDDeNWxnG-rII0tE0KhoqLIz1ug",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3003/user/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "8ae3bac9-b871-47ec-b12c-feefec705b30"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
