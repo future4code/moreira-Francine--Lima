@@ -79,15 +79,13 @@ export default class UserBusiness {
     const result = await this.userData.getAllUsers();
     return result;
   };
-  getUserById = async (token: string, id: string) => {
+  deleteUserById = async (token: string, id: string) => {
     const tokenData = this.authenticator.getTokenData(token);
     if (!tokenData) {
       throw new Error("Token inválido");
     }
-    const result = await this.userData.getUserById(id);
-    if (!result) {
-      throw new Error("Id inválido.");
-    }
-    return result;
+    await this.userData.deleteUserById(id);
+
+    return "Deletado.";
   };
 }

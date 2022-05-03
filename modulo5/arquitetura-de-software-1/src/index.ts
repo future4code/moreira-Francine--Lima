@@ -17,9 +17,8 @@ const userController = new UserController(userBusiness);
 
 app.get("/user/all", userController.getAllUsers);
 
-app.get("/user/:id", userController.getUserById);
+app.delete("/user/:id", userController.deleteUserById);
 
 app.post("/user/signup", userController.signup);
 
-app.post("/user/login", userController.login )
-
+app.post("/user/login", userController.login);

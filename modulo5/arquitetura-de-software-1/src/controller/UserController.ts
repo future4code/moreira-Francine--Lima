@@ -61,12 +61,12 @@ export default class UserController {
     }
   };
 
-  getUserById = async (req: Request, res: Response) => {
+ deleteUserById = async (req: Request, res: Response) => {
     const token = req.headers.authorization;
      const id=req.params.id
 
     try {
-      const userData = await this.userBusiness.getUserById(token,id)
+      const userData = await this.userBusiness.deleteUserById(token,id)
 
       res.status(200).send(userData);
     } catch (error) {

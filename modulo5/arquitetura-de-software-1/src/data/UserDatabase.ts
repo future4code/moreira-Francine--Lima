@@ -36,22 +36,42 @@ export default class UserDatabase extends BaseDatabase {
   };
 
   LoginUser = async (email: string): Promise<any> => {
-    const result = await this.connection(this.TABLE_NAME)
-      .select("*")
-      .where({ email: email });
+    try {
+      const result = await this.connection(this.TABLE_NAME)
+        .select("*")
+        .where({ email: email });
 
-    return result[0];
+      return result[0];
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Erro do banco !");
+      }
+    }
   };
   getAllUsers = async (): Promise<any> => {
-    const result = await this.connection(this.TABLE_NAME);
-    return result;
+    try {
+      const result = await this.connection(this.TABLE_NAME);
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Erro do banco !");
+      }
+    }
   };
 
-  getUserById = async (id: string): Promise<any> => {
-    const result = await this.connection(this.TABLE_NAME)
-      .select("*")
-      .where({ id: id });
-
-    return result[0];
+  deleteUserById = async (id: string): Promise<any> => {
+    try {
+      await this.connection(this.TABLE_NAME).where({ id: id }).del();
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error("Erro do banco !");
+      }
+    }
   };
 }
