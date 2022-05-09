@@ -12,14 +12,10 @@ export function purchase(user: User, value: number): User | undefined{
     }
 }
 
-const user={
-    name:"Fran",
-    balance:60
-}
+//const user={
+//    name:"Fran",
+//   balance:60
+//}
 
-console.log(purchase(user, 100));
+//console.log(purchase(user, 100));
 
-// export class newPurchase{
-
-
-// } 
