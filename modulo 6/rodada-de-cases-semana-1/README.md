@@ -58,6 +58,6 @@ Visual Studio Code
   ❯ npm run start
 
 
-### Autores
+### Autora
 
  [<img src="https://avatars.githubusercontent.com/u/94610559?v=4" width=115/><br><sub>Francine FullSTack</sub>](https://github.com/francine1919)
