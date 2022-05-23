@@ -25,7 +25,7 @@ export class CardPaymentController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
+    
   }
 
   async getCardPaymentInfo(req: Request, res: Response) {
@@ -43,6 +43,6 @@ export class CardPaymentController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
+    
   }
 }

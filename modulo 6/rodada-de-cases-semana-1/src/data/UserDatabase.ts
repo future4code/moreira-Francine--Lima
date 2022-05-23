@@ -11,7 +11,7 @@ export class UserDatabase extends BaseDatabase {
     password: string
   ): Promise<void> {
     try {
-      await this.getConnection()
+      await this.connection(UserDatabase.TABLE_NAME)
         .insert({
           id,
           name,
@@ -26,7 +26,7 @@ export class UserDatabase extends BaseDatabase {
   }
   public async getUserByEmail(email: string): Promise<User> | undefined {
     try {
-      const result = await this.getConnection()
+      const result = await this.connection(UserDatabase.TABLE_NAME)
         .select("*")
         .from(UserDatabase.TABLE_NAME)
         .where({ email });
@@ -40,7 +40,7 @@ export class UserDatabase extends BaseDatabase {
   }
   public async getUserById(id: string): Promise<User> | undefined {
     try {
-      const result = await this.getConnection()
+      const result = await this.connection(UserDatabase.TABLE_NAME)
         .select("*")
         .from(UserDatabase.TABLE_NAME)
         .where({ id });

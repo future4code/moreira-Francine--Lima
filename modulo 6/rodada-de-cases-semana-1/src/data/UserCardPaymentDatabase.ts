@@ -17,7 +17,7 @@ export class UserCardPaymentDatabase extends BaseDatabase {
     status: string
   ): Promise<void> {
     try {
-      await this.getConnection()
+      await this.connection(UserCardPaymentDatabase.TABLE_NAME)
         .insert({
           id,
           name,
@@ -38,7 +38,7 @@ export class UserCardPaymentDatabase extends BaseDatabase {
   }
   public async getUserPayment(creator_user_id: string) {
     try {
-      const result = await this.getConnection()
+      const result = await this.connection(UserCardPaymentDatabase.TABLE_NAME)
         .select("*")
         .from(UserCardPaymentDatabase.TABLE_NAME)
         .where({ creator_user_id });

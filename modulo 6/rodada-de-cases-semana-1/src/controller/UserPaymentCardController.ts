@@ -22,7 +22,6 @@ export class UserPaymentCardController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
   }
 
   async getUserPaymentCardInfo(req: Request, res: Response) {
@@ -39,6 +38,6 @@ export class UserPaymentCardController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
+
   }
 }

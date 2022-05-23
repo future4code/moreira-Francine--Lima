@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { UserPaymentSlipBusiness } from "../business/UserPaymentSlipBusiness";
-import { BaseDatabase } from "../data/BaseDatabase";
 
 export class UserPaymentSlipController {
   async createUserPaymentSlip(req: Request, res: Response) {
@@ -15,8 +14,6 @@ export class UserPaymentSlipController {
     } catch (error) {
       res.status(400).send({ error: error.message });
     }
-
-    await BaseDatabase.destroyConnection();
   }
 
   async getUserPaymentSlipInfo(req: Request, res: Response) {
@@ -32,7 +29,5 @@ export class UserPaymentSlipController {
     } catch (error) {
       res.status(400).send({ error: error.message });
     }
-
-    await BaseDatabase.destroyConnection();
   }
 }

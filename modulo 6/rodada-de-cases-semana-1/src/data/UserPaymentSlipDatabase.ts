@@ -14,7 +14,7 @@ export class UserPaymentSlipDatabase extends BaseDatabase {
     creator_user_id: string
   ): Promise<void> {
     try {
-      await this.getConnection()
+      await this.connection(UserPaymentSlipDatabase.TABLE_NAME)
         .insert({
           id,
           name,
@@ -32,7 +32,7 @@ export class UserPaymentSlipDatabase extends BaseDatabase {
   }
   public async getUserPayment(creator_user_id: string) {
     try {
-      const result = await this.getConnection()
+      const result = await this.connection(UserPaymentSlipDatabase.TABLE_NAME)
         .select("*")
         .from(UserPaymentSlipDatabase.TABLE_NAME)
         .where({ creator_user_id });

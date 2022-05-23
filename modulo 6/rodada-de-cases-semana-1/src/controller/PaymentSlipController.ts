@@ -23,7 +23,7 @@ export class PaymentSlipController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
+  
   }
   async getPaymentSlipInfo(req: Request, res: Response) {
     try {
@@ -38,6 +38,6 @@ export class PaymentSlipController {
       res.status(400).send({ error: error.message });
     }
 
-    await BaseDatabase.destroyConnection();
+   
   }
 }
