@@ -44,6 +44,7 @@ Visual Studio Code
   ##### 2- Entrar no diretório
   ❯ cd modulo6
   ❯ cd rodada-de-cases-semana-1
+  ❯ front
 
 ##### 3- Para instalar as dependências e iniciar o projeto, você pode utilizar NPM:
   ###### Versões do node e npm:
