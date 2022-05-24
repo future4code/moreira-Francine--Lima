@@ -8,8 +8,8 @@ Aplicação fornece uma API para pagamento a nossos clientes e um checkout para 
 - `Funcionalidade 3`: Poder realizar um pagamento através de boleto ou cartão para clientes cadastrados.
 
 ### Veja o projeto: 
-Site:
-Documentação da API:https://documenter.getpostman.com/view/19296644/Uyxoij62
+Site: https://panoramic-tramp.surge.sh/login </br>
+Documentação da API: https://documenter.getpostman.com/view/19296644/Uyxoij62
 
 
 <!-- ### Lista com linguagens, frameworks e/ou tecnologias usadas
@@ -47,7 +47,7 @@ Visual Studio Code
 
 ##### 3- Para instalar as dependências e iniciar o projeto, você pode utilizar NPM:
   ###### Versões do node e npm:
-  node: v16.13.0
+  node: v16.15.0
   npm:8.3.2
 
  ###### Instalar as dependências
@@ -57,6 +57,6 @@ Visual Studio Code
   ❯ npm run start
 
 
-### Autores
+### Autora
 
  [<img src="https://avatars.githubusercontent.com/u/94610559?v=4" width=115/><br><sub>Francine FullSTack</sub>](https://github.com/francine1919)
