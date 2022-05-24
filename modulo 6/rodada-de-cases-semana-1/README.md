@@ -8,8 +8,8 @@ Aplicação fornece uma API para pagamento a nossos clientes e um checkout para 
 - `Funcionalidade 3`: Poder realizar um pagamento através de boleto ou cartão para clientes cadastrados.
 
 ### Veja o projeto: 
-Site:https://panoramic-tramp.surge.sh/login
-Documentação da API:https://documenter.getpostman.com/view/19296644/Uyxoij62
+Site: https://panoramic-tramp.surge.sh/login </br>
+Documentação da API: https://documenter.getpostman.com/view/19296644/Uyxoij62
 
 
 <!-- ### Lista com linguagens, frameworks e/ou tecnologias usadas
