@@ -12,7 +12,7 @@ Site: https://panoramic-tramp.surge.sh/login </br>
 Documentação da API: https://documenter.getpostman.com/view/19296644/Uyxoij62
 
 
-<!-- ### Lista com linguagens, frameworks e/ou tecnologias usadas
+ ### Lista com linguagens, frameworks e/ou tecnologias usadas
 - HTML
 - JAVASCRIPT
 - CSS
@@ -29,7 +29,7 @@ Documentação da API: https://documenter.getpostman.com/view/19296644/Uyxoij62
 - KNEX
 - UUID
 - DOTENV
-- Figma -->
+
 
 
 ### IDE
@@ -39,7 +39,7 @@ Visual Studio Code
 
 ##### 1- Clonar o repositório
 
-  ❯ git clone [https://github.com/francine1919/Provi-Hack-Time-50.git](https://github.com/future4code/moreira-Francine-Lima.git)
+  ❯ git clone [https://github.com/future4code/moreira-Francine-Lima.git](https://github.com/future4code/moreira-Francine-Lima.git)
 
   ##### 2- Entrar no diretório
   ❯ cd modulo6
