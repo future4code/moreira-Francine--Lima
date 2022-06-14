@@ -1,0 +1,328 @@
+//1a) gerar ids por string parece ser uma alternativa melhor que números, já que não há suporte para octais no typescrit e no javscript, for que não manipularemos esse dado através de operações matemáticas diretas.
+//1b)
+// export function generateId(): string {
+//   return v4();
+// }
+
+
+// 2)
+// const userTableName = "User";
+
+// const connection = knex({
+//   client: "mysql",
+//   connection: {
+//     host: process.env.DB_HOST,
+//     port: 3306,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_SCHEMA,
+//   },
+// });
+
+// const createUser = async (id: string, email: string, password: string) => {
+//   await connection
+//     .insert({
+//       id,
+//       email,
+//       password,
+//     })
+//     .into(userTableName);
+// };
+//2a) O código faz a conexão com o banco de dados utilizando o knex, e o process.env que é uma variável que é carregada através do nodeJs durante o runtime, dando acesso as minha informações no aqueivo .env para realizar a conexão.
+//Depois há um query builder do knex, para inserir um novo usuário na tabela de usuários no banco de dados.
+
+//b)
+// const createTable = () =>
+//   connection
+//     .raw(
+//       ` CREATE TABLE IF NOT EXISTS  login_users (
+//          id VARCHAR(255) PRIMARY KEY,
+//          email VARCHAR(255) UNIQUE NOT NULL,
+//          password VARCHAR(255) NOT NULL
+//       );
+  
+// `
+
+//7b) Coloca o resultado como as any pois pode vir uma string ou talvez jwt payload
+
+//Exercício de cryptografia terça 26/04/2022
+
+// //1a)
+// //cost ou round é o número de iterações que o código ira fazer, quanto maior o cost maior o tempo de execução do algoritmo. Um bom número seria 12.
+// //salt é uma string aleatória a senha que é adicionada antes da criação do hash e é utilizada para evitar a criptoanálise por meio do ranbow table.
+// //b,c)
+
+// // import * as bcrypt from "bcryptjs";
+
+// // const hash = async (s: string): Promise<string> => {
+// //   const rounds = Number(process.env.BCRYPT_COST);
+// //   const salt = await bcrypt.genSalt(rounds);
+// //   const result = await bcrypt.hash(s, salt);
+// //   return result;
+// // };
+
+// // const compare = async (s: string, hash: string): Promise<boolean> => {
+// //   return bcrypt.compare(s, hash);
+// // };
+
+// //----------------------------------------------------------------------------------------------
+// //2a)
+// //O do cadastro ou signup por que antes de criar o usuário eu já desejo criptografar a senha.
+// //b)
+// // import { Request, Response } from "express";
+// // import { createUser } from "../data/migrations";
+// // import { generateHash } from "../middleware/bcrypt";
+// // import { generateId } from "../middleware/idGenerator";
+// // import { generateToken } from "../middleware/tokenGenerator";
+
+// // export const signupUser = async (
+// //   req: Request,
+// //   res: Response
+// // ): Promise<void> => {
+// //   try {
+// //     //body
+// //     const { email, password } = req.body;
+
+// //     //generating Id
+// //     const id = generateId();
+
+// //     //encryptying the password
+// //     const hashPass = await generateHash(password);
+
+// //     //validations
+// //     if (!email || email.indexOf("@") === -1) {
+// //       res.statusCode = 422;
+// //       throw new Error("Invalid email");
+// //     }
+// //     if (!password || password.lenght < 6) {
+// //       res.statusCode = 422;
+// //       throw new Error("Invalid password");
+// //     }
+// //     //creating user
+// //     await createUser(id, email, hashPass);
+
+// //     //generating token
+// //     const token = generateToken({ id: id });
+
+// //     res.status(200).send(token);
+// //   } catch (e: any) {
+// //     if (typeof e === "string") {
+// //       res.send(e);
+// //     } else {
+// //       console.log(e.sqlMessage || e.message);
+// //       res.status(500).send(e.sqlMessage || e.message);
+// //     }
+// //   }
+// // };
+
+
+// //c)
+
+// // import { compare } from "bcryptjs";
+// // import { Request, Response } from "express";
+// // import { LoginUser } from "../data/migrations";
+// // import { generateToken } from "../middleware/tokenGenerator";
+
+// // export const login = async (req: Request, res: Response): Promise<void> => {
+// //   try {
+// //     //body
+// //     const { email, password } = req.body;
+
+// //     //getting data from user
+// //     const user = await LoginUser(email);
+
+// //     //using compare hash function to compare result
+// //     const compareResult = await compare(user.password, password);
+
+// //     //validations
+// //     if (!email || email.indexOf("@") === -1 || !password) {
+// //       res.statusCode = 422;
+// //       throw new Error("All fields are compulsory and an email must have a @.");
+// //     }
+
+// //     if (email !== user.email) {
+// //       res.statusCode = 404;
+// //       throw new Error("Email not found");
+// //     }
+// //     if (!compareResult) {
+// //       res.statusCode = 404;
+// //       throw new Error("Wrong password");
+// //     }
+// //     //generating token
+// //     const token = generateToken({ id: user.id });
+
+// //     res.status(200).send(token);
+// //   } catch (e: any) {
+// //     if (typeof e === "string") {
+// //       res.send(e);
+// //     } else {
+// //       console.log(e.sqlMessage || e.message);
+// //       res.status(500).send(e.sqlMessage || e.message);
+// //     }
+// //   }
+// // };
+
+// //d) não precisamos mudar o endpoint de pegar usuário, pois dados sensíveis não são mostrados nele
+
+// //3a) Workbench
+
+// // ALTER TABLE login_users
+// // ADD COLUMN role ENUM("ADMIN", "NORMAL") DEFAULT "NORMAL";
+
+// //b)
+// // export type Payload = {
+// //   id: string;
+// //   role: string;
+// // };
+
+
+// // export const getData = (token: string): Payload => {
+// //   const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
+// //   const result = {
+// //     id: payload.id,
+// //     role: payload.role,
+// //   };
+// //   return result;
+// // };
+
+// //c)altere o cadastro
+
+// // import { Request, Response } from "express";
+// // import { createUser } from "../data/migrations";
+// // import { generateHash } from "../middleware/bcrypt";
+// // import { generateId } from "../middleware/idGenerator";
+// // import { generateToken } from "../middleware/tokenGenerator";
+
+// // export const signupUser = async (
+// //   req: Request,
+// //   res: Response
+// // ): Promise<void> => {
+// //   try {
+// //     //body
+// //     const { email, password, role } = req.body;
+
+// //     //generating Id
+// //     const id = generateId();
+
+// //     //encryptying the password
+// //     const hashPass = await generateHash(password);
+
+// //     //validations
+// //     if (!email || email.indexOf("@") === -1) {
+// //       res.statusCode = 422;
+// //       throw new Error("Invalid email");
+// //     }
+// //     if (!password || password.lenght < 6) {
+// //       res.statusCode = 422;
+// //       throw new Error("Invalid password");
+// //     }
+// //     if (role !== "ADMIN" || role !== "NORMAL") {
+// //       res.statusCode = 422;
+// //       throw new Error("Invalid role, role must either 'ADMIN' or 'NORMAL'");
+// //     }
+// //     //creating user
+// //     await createUser(id, email, hashPass, role);
+
+// //     //generating token
+// //     const token = generateToken({ id: id, role: role });
+
+// //     res.status(200).send(token);
+// //   } catch (e: any) {
+// //     if (typeof e === "string") {
+// //       res.send(e);
+// //     } else {
+// //       console.log(e.sqlMessage || e.message);
+// //       res.status(500).send(e.sqlMessage || e.message);
+// //     }
+// //   }
+// // };
+
+// //d)Altere o login
+
+// // import { compare } from "bcryptjs";
+// // import { Request, Response } from "express";
+// // import { LoginUser } from "../data/migrations";
+// // import { generateToken } from "../middleware/tokenGenerator";
+
+// // export const login = async (req: Request, res: Response): Promise<void> => {
+// //   try {
+// //     //body
+// //     const { email, password } = req.body;
+
+// //     //getting data from user
+// //     const user = await LoginUser(email);
+
+// //     //using compare hash function to compare result
+// //     const compareResult = await compare(user.password, password);
+
+// //     //validations
+// //     if (!email || email.indexOf("@") === -1 || !password) {
+// //       res.statusCode = 422;
+// //       throw new Error("All fields are compulsory and an email must have a @.");
+// //     }
+
+// //     if (email !== user.email) {
+// //       res.statusCode = 404;
+// //       throw new Error("Email not found");
+// //     }
+// //     if (!compareResult) {
+// //       res.statusCode = 404;
+// //       throw new Error("Wrong password");
+// //     }
+// //     //generating token
+// //     const token = generateToken({ id: user.id, role: user.role });
+
+// //     res.status(200).send(token);
+// //   } catch (e: any) {
+// //     if (typeof e === "string") {
+// //       res.send(e);
+// //     } else {
+// //       console.log(e.sqlMessage || e.message);
+// //       res.status(500).send(e.sqlMessage || e.message);
+// //     }
+// //   }
+// // };
+
+// //---------------------------------------------------------------------------------------------------
+// //4) Altere o get user profile para que só usuários com role normal possam acessar esse endpoint
+
+// import { Request, Response } from "express";
+// import connection from "../data/connection";
+// import { getUserById } from "../data/migrations";
+// import { getData } from "../middleware/tokenGenerator";
+// import { User } from "../types/type";
+
+// export const getUserInfo = async (
+//   req: Request,
+//   res: Response
+// ): Promise<void> => {
+//   try {
+//     //headers
+//     const token = req.headers.authorization as string;
+
+//     //get data from token
+//     const authData = getData(token);
+
+//     //validation
+//     if (authData.role === "ADMIN") {
+//       res.statusCode = 401;
+//       throw new Error("Unauthorized.");
+//     }
+
+//     //get user info from databank
+//     const userInfo: User = await getUserById(authData.id);
+
+//     res.status(200).send({
+//       id: userInfo.id,
+//       email: userInfo.email,
+//       role: authData.role,
+//     });
+//   } catch (e: any) {
+//     if (typeof e === "string") {
+//       res.send(e);
+//     } else {
+//       console.log(e.sqlMessage || e.message);
+//       res.status(500).send(e.sqlMessage || e.message);
+//     }
+//   }
+// };
