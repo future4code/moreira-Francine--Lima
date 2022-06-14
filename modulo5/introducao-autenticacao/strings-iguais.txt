@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "081cf9ac-74de-4ab6-a2d5-ea52dda71d36",
+		"name": "introdução a autenticação",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ana@aaa.com\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"ana@aaa.com\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1NDk1MzRkLWI5ZTgtNGYwYy05ZmYxLWExM2I4NDQ5ZjM5MCIsImlhdCI6MTY1MDkzNzY2NywiZXhwIjoxNjUwOTM4MjY3fQ.OM9vGj-EqXzarQFhX6CrZSsf-lnDl0-W3NGCcSyC2sM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3003/user/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

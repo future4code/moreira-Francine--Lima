@@ -1,0 +1,46 @@
+//1a) gerar ids por string parece ser uma alternativa melhor que números, já que não há suporte para octais no typescrit e no javscript, for que não manipularemos esse dado através de operações matemáticas diretas.
+//1b)
+// export function generateId(): string {
+//   return v4();
+// }
+
+
+// 2)
+// const userTableName = "User";
+
+// const connection = knex({
+//   client: "mysql",
+//   connection: {
+//     host: process.env.DB_HOST,
+//     port: 3306,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_SCHEMA,
+//   },
+// });
+
+// const createUser = async (id: string, email: string, password: string) => {
+//   await connection
+//     .insert({
+//       id,
+//       email,
+//       password,
+//     })
+//     .into(userTableName);
+// };
+//2a) O código faz a conexão com o banco de dados utilizando o knex, e o process.env que é uma variável que é carregada através do nodeJs durante o runtime, dando acesso as minha informações no aqueivo .env para realizar a conexão.
+//Depois há um query builder do knex, para inserir um novo usuário na tabela de usuários no banco de dados.
+
+//b)
+// const createTable = () =>
+//   connection
+//     .raw(
+//       ` CREATE TABLE IF NOT EXISTS  login_users (
+//          id VARCHAR(255) PRIMARY KEY,
+//          email VARCHAR(255) UNIQUE NOT NULL,
+//          password VARCHAR(255) NOT NULL
+//       );
+  
+// `
+
+//7b) Coloca o resultado como as any pois pode vir uma string ou talvez jwt payload
